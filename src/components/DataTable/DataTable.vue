@@ -139,7 +139,7 @@
     <el-pagination
       layout="prev, pager, next"
       :total="props.totalItem"
-      :page-size="20"
+      :page-size="50"
       :current-page="currentPage"
       :next-icon="ArrowLeft"
       :prev-icon="ArrowRight"
@@ -168,7 +168,7 @@ const props = defineProps([
 ])
 const emits = defineEmits(['action', 'filter', 'updateTable', 'selectedUser'])
 
-let filters: any = { page: 1, perPage: 20 }
+let filters: any = { page: 1, limit: 50 }
 const currentPage = ref(1)
 
 const multipleSelection = ref([])
@@ -233,7 +233,7 @@ const sort = (column: any) => {
 const paginate = (paginate: any) => {
   currentPage.value = paginate
   filters['page'] = (paginate)
-  filters['perPage'] = 20
+  filters['limit'] = 50
   emits('filter', filters)
 }
 
@@ -246,7 +246,7 @@ const filter = (filter: any) => {
     }
   })
   filters.page = 1
-  filters['perPage'] = 20
+  filters['limit'] = 50
   emits('filter', filters)
 }
 

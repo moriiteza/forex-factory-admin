@@ -1,6 +1,6 @@
 <template>
   <div class='row'>
-    <div class='col-md-2 col-12 px-1' v-for='item of props.items'>
+    <div class='col-md-2 col-12 px-1 mt-2' v-for='item of props.items'>
       <TextField :icon='item.icon' :name='item.name' :placeholder='item.title' :label='item.label' v-if="item.type === 'textField'" :size="'large'"/>
       <PersianDatePickerField :name='item.name' :placeholder='item.title' :label='item.label' v-if="item.type === 'date'" :size="'large'" :result-formatter='item.dateFormat'/>
       <Select :name='item.name' :placeholder='item.title' :label='item.label' :filterable='item.filterAble' :remote-filterable='item.remoteFilterAble' :items='item.options' v-if="item.type === 'select'" :multiple='item.multiple' :size="'large'"/>

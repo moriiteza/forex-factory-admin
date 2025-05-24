@@ -7,6 +7,12 @@ export default {
     1: 'بله',
     0: 'خیر',
   },
+  calendarType: {
+    'metal': 'فلزات',
+    'crypto': 'کریپتو',
+    'energy': 'انرژی',
+    'forex': 'فارکس',
+  },
   getEnumArray(enumItem: string, start = 1) {
     const result = []
     let index = start

@@ -31,8 +31,8 @@
       <template #title> کاربران</template>
     </el-menu-item>
 
-    <el-menu-item :index="`/calendars`">
-      <Icon class="me-2 fs-6" :icon="'material-symbols:emoji-people'" width="20"></Icon>
+    <el-menu-item :index="`/calendar`">
+      <Icon class="me-2 fs-6" :icon="'material-symbols:calendar-month'" width="20"></Icon>
       <template #title> تقویم</template>
     </el-menu-item>
   </el-menu>

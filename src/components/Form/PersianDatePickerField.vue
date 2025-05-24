@@ -1,165 +1,156 @@
 <template>
-  <div class='datePicker'>
-    <div class='v-field__input' :class="errorMessage && props.hasError ? 'invalid' : ''">
-      <div style='display: flex'>
-        <label :for='name' class='v-field__label'>
+  <div class="datePicker">
+    <div class="v-field__input" :class="errorMessage && props.hasError ? 'invalid' : ''">
+      <div style="display: flex">
+        <label :for="name" class="v-field__label">
           {{ label }}
-          <span v-if='required' class='text-danger'>*</span>
+          <span v-if="required" class="text-danger">*</span>
         </label>
         <el-popover
-          v-if='showInfo'
-          placement='bottom'
-          :title='infoTitle'
-          :width='200'
-          trigger='click'
-          :content='infoBody'
+          v-if="showInfo"
+          placement="bottom"
+          :title="infoTitle"
+          :width="200"
+          trigger="click"
+          :content="infoBody"
         >
           <template #reference>
             <i
-              class='ic-u_info-circle menu-open-icon'
-              style='
-              cursor: pointer;
-              margin-right: 5px;
-              color: #0cc7a1;
-              margin-top: 2px;
-            '
+              class="ic-u_info-circle menu-open-icon"
+              style="cursor: pointer; margin-right: 5px; color: #0cc7a1; margin-top: 2px"
             ></i>
           </template>
         </el-popover>
       </div>
 
       <el-input
-        type='text'
-        :size='size'
-        :name='name'
-        :placeholder='placeholder'
-        ref='inputRef'
-        :model-value='inputValue?.fa || inputValue'
-        @input='datePickerHandleChange'
+        type="text"
+        :size="size"
+        :name="name"
+        :placeholder="placeholder"
+        ref="inputRef"
+        :model-value="inputValue?.fa || inputValue"
+        @input="datePickerHandleChange"
         @click="datePickerHandleShow(true, 'opened')"
-        @blur='handleBlur'
+        @blur="handleBlur"
         @focusout="datePickerHandleShow(false, 'closed')"
         clearable
-        @clear='clean'
-        :disabled='disable'
-        :suffix-icon='Calendar'
+        @clear="clean"
+        :disabled="disable"
+        :suffix-icon="Calendar"
       />
-      <section v-if='inline || state.showDatePicker' class='datePicker__section' @mousedown.prevent>
-        <table v-if='!showTimePicker'>
-          <div v-if='state.showMonthList' class='datePicker__div'>
+      <section v-if="inline || state.showDatePicker" class="datePicker__section" @mousedown.prevent>
+        <table v-if="!showTimePicker">
+          <div v-if="state.showMonthList" class="datePicker__div">
             <button
-              type='button'
-              v-for='(month, index) in state.rangeNameMonths'
-              :key='index'
+              type="button"
+              v-for="(month, index) in state.rangeNameMonths"
+              :key="index"
               :class="{ 'datePicker--active': state.month === ++index }"
-              @click='chooseMonth(index)'
+              @click="chooseMonth(index)"
             >
               {{ month }}
             </button>
           </div>
-          <div
-            :class="[
-            'datePicker__div',
-            !state.showYearList && 'datePicker__div--invisible',
-          ]"
-          >
+          <div :class="['datePicker__div', !state.showYearList && 'datePicker__div--invisible']">
             <button
-              type='button'
-              v-for='(year, index) in state.years'
-              :key='index'
+              type="button"
+              v-for="(year, index) in state.years"
+              :key="index"
               :class="{ 'datePicker--active': state.year === year }"
               :data-scroll="state.year === year ? 1 : ''"
-              @click='chooseYear(year)'
+              @click="chooseYear(year)"
             >
               {{ year }}
             </button>
           </div>
           <thead>
-          <tr>
-            <th class='datePicker__th__button'>
-              <button type='button' class='' @click='prevMonthHandle'>
-                ماه قبل
-              </button>
-            </th>
-            <th class='datePicker__th__button'>
-              <button type='button' @click='state.showMonthList = true'>
-                {{ state.monthName(state.year, state.month) }}
-              </button>
-            </th>
-            <th>
-              <button type='button' @click='openYearList'>
-                {{ state.year }}
-              </button>
-            </th>
-            <th class='datePicker__th__button'>
-              <button type='button' @click='nextMonthHandle'>ماه بعد</button>
-            </th>
-          </tr>
-          <tr>
-            <th v-for='(item, index) in state.weekdaysMin' :key='index'>
-              {{ item }}
-            </th>
-          </tr>
+            <tr>
+              <th class="datePicker__th__button">
+                <button type="button" class="" @click="prevMonthHandle">ماه قبل</button>
+              </th>
+              <th class="datePicker__th__button">
+                <button type="button" @click="state.showMonthList = true">
+                  {{ state.monthName(state.year, state.month) }}
+                </button>
+              </th>
+              <th>
+                <button type="button" @click="openYearList">
+                  {{ state.year }}
+                </button>
+              </th>
+              <th class="datePicker__th__button">
+                <button type="button" @click="nextMonthHandle">ماه بعد</button>
+              </th>
+            </tr>
+            <tr>
+              <th v-for="(item, index) in state.weekdaysMin" :key="index">
+                {{ item }}
+              </th>
+            </tr>
           </thead>
           <tbody>
-          <tr
-            v-for='(item, index) in state.calcNumberWeeks(
-              state.offsetDay(state.firstDayMonth(state.year, state.month)),
-              state.lastOffsetDay(
-                state.lastDayMonth(
-                  state.year,
-                  state.month,
-                  state.daysInMonth(state.year, state.month)
-                )
-              ),
-              state.daysInMonth(state.year, state.month)
-            )'
-            :key='item'
-          >
-            <td
-              v-for='(day, idx) in state.tableDays(
-                state.daysInMonth(state.year, state.month),
-                state.prevMonthDays(
-                  state.prevMonth(state.year, state.month),
-                  state.offsetDay(state.firstDayMonth(state.year, state.month))
+            <tr
+              v-for="(item, index) in state.calcNumberWeeks(
+                state.offsetDay(state.firstDayMonth(state.year, state.month)),
+                state.lastOffsetDay(
+                  state.lastDayMonth(
+                    state.year,
+                    state.month,
+                    state.daysInMonth(state.year, state.month),
+                  ),
                 ),
-                state.nextMonthDays(
-                  state.lastOffsetDay(
-                    state.lastDayMonth(
-                      state.year,
-                      state.month,
-                      state.daysInMonth(state.year, state.month)
-                    )
-                  )
-                )
-              )[index]'
-              :key='idx'
-              :class="{
-                'datePicker__td--disable': typeof day !== 'number',
-                'datePicker__td--active': state.selected === day,
-                'datePicker--active':
-                  !state.selected &&
-                  state.today === day &&
-                  state.checkYearMonth(state.year, state.month),
-                'datePicker--highlight':
-                  state.today === day &&
-                  state.checkYearMonth(state.year, state.month),
-              }"
-              @click='dateSelectedHandle(day)'
+                state.daysInMonth(state.year, state.month),
+              )"
+              :key="item"
             >
-              {{ day }}
-            </td>
-          </tr>
-          <tr class='datePicker__button'>
-            <button type='button' @click='goToday' id='to-day-button'>امروز</button>
-          </tr>
+              <td
+                v-for="(day, idx) in state.tableDays(
+                  state.daysInMonth(state.year, state.month),
+                  state.prevMonthDays(
+                    state.prevMonth(state.year, state.month),
+                    state.offsetDay(state.firstDayMonth(state.year, state.month)),
+                  ),
+                  state.nextMonthDays(
+                    state.lastOffsetDay(
+                      state.lastDayMonth(
+                        state.year,
+                        state.month,
+                        state.daysInMonth(state.year, state.month),
+                      ),
+                    ),
+                  ),
+                )[index]"
+                :key="idx"
+                :class="{
+                  'datePicker__td--disable': typeof day !== 'number',
+                  'datePicker__td--active': state.selected === day,
+                  'datePicker--active':
+                    !state.selected &&
+                    state.today === day &&
+                    state.checkYearMonth(state.year, state.month),
+                  'datePicker--highlight':
+                    state.today === day && state.checkYearMonth(state.year, state.month),
+                }"
+                @click="dateSelectedHandle(day)"
+              >
+                {{ day }}
+              </td>
+            </tr>
+            <tr class="datePicker__button">
+              <button type="button" @click="goToday" id="to-day-button">امروز</button>
+            </tr>
           </tbody>
         </table>
       </section>
     </div>
   </div>
-  <div class='v-field__error' :class="errorMessage ? 'show' : 'hide'" v-if='errorMessage && props.hasError'>
-    <i class='ic-u_info-circle'></i> {{ errorMessage }}
+  <div
+    class="v-field__error"
+    :class="errorMessage ? 'show' : 'hide'"
+    v-if="errorMessage && props.hasError"
+  >
+    <i class="ic-u_info-circle"></i> {{ errorMessage }}
   </div>
 </template>
 
@@ -179,15 +170,15 @@ const props = defineProps({
   label: String,
   size: {
     default: 'large' | 'small' | 'default',
-    type: String
+    type: String,
   },
   required: {
     default: false,
-    type: Boolean
+    type: Boolean,
   },
   disable: {
     default: false,
-    type: Boolean
+    type: Boolean,
   },
   placeholder: String,
   format: String,
@@ -195,8 +186,12 @@ const props = defineProps({
   resultFormatter: { Type: String, default: 'YYYY-MM-DD' },
   hasError: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
+  showInfo: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const jalal = new PersianDate()
@@ -213,12 +208,10 @@ const state = reactive({
     }
   }),
   prevMonth: computed(() => {
-    return (year, month) =>
-      new PersianDate([year, month <= 1 ? 1 : month - 1]).daysInMonth()
+    return (year, month) => new PersianDate([year, month <= 1 ? 1 : month - 1]).daysInMonth()
   }),
   nextMonth: computed(() => {
-    return (year, month) =>
-      new PersianDate([year, month >= 12 ? 1 : month + 1]).daysInMonth()
+    return (year, month) => new PersianDate([year, month >= 12 ? 1 : month + 1]).daysInMonth()
   }),
   weekdaysMin: jalal.rangeName().weekdaysMin,
   months: jalal.rangeName().months,
@@ -319,11 +312,9 @@ const state = reactive({
       return jalal.year() === year && jalal.month() === month
     }
   }),
-  calcNumberWeeks: computed(
-    () => (offsetDay, lastOffsetDay, daysInMonth) => {
-      return Math.floor((offsetDay + lastOffsetDay + daysInMonth) / 7)
-    }
-  ),
+  calcNumberWeeks: computed(() => (offsetDay, lastOffsetDay, daysInMonth) => {
+    return Math.floor((offsetDay + lastOffsetDay + daysInMonth) / 7)
+  }),
   tableDays: computed(() => (daysInMonth, prevMonthDays, nextMonthDays) => {
     return genMatrix(daysInMonth, 7, prevMonthDays, nextMonthDays)
   }),
@@ -332,7 +323,7 @@ const state = reactive({
   showDatePicker: false,
   date: new PersianDate([jalal.year(), jalal.month(), jalal.date()])
     .toLocale('en')
-    .format('YYYY/MM/DD')
+    .format('YYYY/MM/DD'),
 })
 
 const prevMonthHandle = () => {
@@ -408,7 +399,7 @@ const chooseYear = (year) => {
 
 const openYearList = () => {
   state.showYearList = true
-  scrollToElementD('.datePicker__div', 'button[data-scroll=\'1\']')
+  scrollToElementD('.datePicker__div', "button[data-scroll='1']")
 }
 
 const scrollToElementD = (parent, toEl) => {
@@ -429,7 +420,10 @@ const dateSelectedHandle = (index) => {
   inputRef?.value?.blur()
   setValue({
     fa: state.date,
-    en: callableMoment.from(state.date, 'fa', 'jYYYY/jMM/jDD').locale('en').format(props.resultFormatter)
+    en: callableMoment
+      .from(state.date, 'fa', 'jYYYY/jMM/jDD')
+      .locale('en')
+      .format(props.resultFormatter),
   })
 }
 
@@ -439,17 +433,25 @@ const {
   value: inputValue,
   errorMessage,
   handleBlur,
-  setValue
+  setValue,
 } = useField(name, undefined, {
-  initialValue: props.value
+  initialValue: props.value,
 })
-
 
 setTimeout(() => {
   if (inputValue.value) {
-    const day = callableMoment.from(inputValue.value.fa, 'fa', 'jYYYY-jMM-jDD').locale('fa').get('D');
-    const month = callableMoment.from(inputValue.value.fa, 'fa', 'jYYYY-jMM-jDD').locale('fa').get('M');
-    const year = callableMoment.from(inputValue.value.fa, 'fa', 'jYYYY-jMM-jDD').locale('fa').get('Y');
+    const day = callableMoment
+      .from(inputValue.value.fa, 'fa', 'jYYYY-jMM-jDD')
+      .locale('fa')
+      .get('D')
+    const month = callableMoment
+      .from(inputValue.value.fa, 'fa', 'jYYYY-jMM-jDD')
+      .locale('fa')
+      .get('M')
+    const year = callableMoment
+      .from(inputValue.value.fa, 'fa', 'jYYYY-jMM-jDD')
+      .locale('fa')
+      .get('Y')
     state.month = month + 1
     state.year = year
     dateSelectedHandle(day)
@@ -457,9 +459,7 @@ setTimeout(() => {
 }, 500)
 </script>
 
-<style lang='scss'>
-@import "@/assets/themes/theme-1.scss";
-
+<style lang="scss">
 .datePicker {
   position: relative;
   direction: rtl;
@@ -489,7 +489,7 @@ setTimeout(() => {
 
 .datePicker table {
   position: relative;
-  background: #fff;
+  background: #706d6d;
 }
 
 .datePicker table tr th {
@@ -498,7 +498,7 @@ setTimeout(() => {
 
 .datePicker table thead tr:last-child {
   margin-bottom: 0.5rem;
-  color: #979ca6;
+  color: #f6fbff;
 }
 
 .datePicker table thead tr:first-child th:first-child,
@@ -512,13 +512,13 @@ setTimeout(() => {
 
 .datePicker table thead tr:first-child th:first-child button,
 .datePicker table thead tr:first-child th:last-child button {
-  background: #efefef;
+  background: #706d6d;
   border-radius: 5px;
 }
 
 .datePicker table thead tr:first-child th:first-child button:hover,
 .datePicker table thead tr:first-child th:last-child button:hover {
-  background: #e6e4e4;
+  background: #706d6d;
 }
 
 .datePicker table thead tr:first-child th:nth-child(2) button {
@@ -529,10 +529,7 @@ setTimeout(() => {
 
 .datePicker table thead tr:first-child th:nth-child(3) button {
   font-size: 13px;
-}
-
-.datePicker table tbody td.datePicker__td--disable {
-  color: #d2d6dc;
+  color: #706d6d;
 }
 
 .datePicker table tr {
@@ -565,12 +562,12 @@ setTimeout(() => {
 
 .datePicker table .datePicker__div {
   position: absolute;
-  content: "";
+  content: '';
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: #fff;
+  background: #706d6d;
   padding: 0.3rem;
   z-index: 9999;
   overflow-y: auto;
@@ -583,12 +580,11 @@ setTimeout(() => {
 
 .datePicker table tr td:hover:not(th):not(.datePicker__td--disable),
 .datePicker
-table
-tr
-th:not(.datePicker__th__button):not(.datePicker__th):hover:not(th):not(.datePicker__td--disable) {
-
+  table
+  tr
+  th:not(.datePicker__th__button):not(.datePicker__th):hover:not(th):not(.datePicker__td--disable) {
   cursor: pointer;
-  background-color: map-get($colors, 'primary', 'light')
+  background-color: #9a499a;
 }
 
 .datePicker table .datePicker__div button {
@@ -602,22 +598,21 @@ th:not(.datePicker__th__button):not(.datePicker__th):hover:not(th):not(.datePick
 }
 
 .datePicker table .datePicker__div button:hover {
-  background: map-get($colors, 'primary', 'base') !important;
+  background: #9a499a !important;
   color: #fff;
 }
 
 .datePicker table tr td.datePicker--highlight {
-  background: map-get($colors, 'primary', 'light');
-  color: #fff
+  background: #9a499a;
+  color: #fff;
 }
 
 .datePicker .datePicker--active {
-  background: map-get($colors, 'primary', 'base') !important;
-
+  background: #6c1a6c !important;
 }
 
 .datePicker table tr .datePicker__td--active {
-  background: map-get($colors, 'primary', 'base') !important;
+  background: #6c1a6c !important;
   color: #fff;
 }
 
@@ -631,7 +626,7 @@ th:not(.datePicker__th__button):not(.datePicker__th):hover:not(th):not(.datePick
 }
 
 .datePicker .datePicker__button button {
-  background: map-get($colors, 'primary', 'base') !important;
+  background: #9a499a !important;
   color: #fff;
   width: 100%;
   padding: 0.25rem 0;
