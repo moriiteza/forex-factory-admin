@@ -1,0 +1,153 @@
+.form {
+  width: 100%;
+  &__title {
+    margin: 0 0 10px 0;
+    text-align: right;
+  }
+  &__buttons {
+    text-align: left;
+    margin-top: 15px;
+  }
+}
+
+.v-field {
+  &__input {
+    width: 100%;
+    .el-select {
+      width: 100%;
+    }
+    .el-checkbox {
+      width: 100%;
+      &__label {
+        padding-right: 10px;
+        padding-left: 0;
+      }
+    }
+    .el-input__inner {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    &.invalid {
+      .el-input__inner {
+        border: 1px solid red;
+        width: 100%;
+        border-radius: 5px;
+      }
+      .el-input-tag {
+        border: 1px solid red;
+      }
+      .el-textarea {
+        textarea {
+          border: 1px solid red;
+        }
+      }
+    }
+  }
+  &__error {
+    color: #e10000cc;
+    font-size: 13px;
+    text-align: right;
+    min-height: 25px;
+    font-weight: lighter;
+    transition: all 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+    i {
+      color: #e10000;
+      font-size: 16px;
+      margin-left: 5px;
+    }
+    &.hide {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    &.show {
+      opacity: 1;
+      transform: translateY(5px);
+    }
+  }
+}
+@keyframes error {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(5px) !important;
+  }
+}
+
+.vpd-input-group {
+  height: 40px;
+
+  .vpd-icon-btn {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  input {
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    width: 100%;
+    line-height: 38px;
+  }
+}
+
+.package-price-field {
+  &__item,
+  &__no-item {
+    margin: 0 0 20px 0;
+    width: auto !important;
+    background-color: #f6fbff;
+    padding: 25px 15px 15px 15px;
+    border: 1px solid #d6dfe6;
+  }
+
+  &__item:nth-last-child(3) {
+    margin: 0 0 0 0 !important;
+  }
+
+  &__delete {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__no-item {
+    font-size: 14px;
+    padding: 35px 20px;
+    color: #848e99;
+  }
+}
+
+.my-text-style {
+  color: #3a8ee6 !important;
+  display: inline !important;
+  font-weight: bold;
+}
+
+.text-area {
+  border: 1px solid rgb(192 201 204 / 67%);
+  border-radius: 8px;
+  padding: 12px;
+  height: 390px;
+}
+
+div[contenteditable] {
+  outline: none;
+}
+
+.el-input__wrapper {
+  padding: 0 !important;
+}
+
+.app-card {
+  padding: 1em;
+  border-radius: 0.2rem;
+  background: linear-gradient(315deg, #ffffff, #ffffff);
+  box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px !important;
+  //border: 3px dashed transparent !important;
+}

@@ -18,12 +18,13 @@ export const useAuthStore = defineStore(
 
     async function login(username: string, password: string) {
       try {
-        const response: { data: { user: User; token: string } } = await api.post('/users/login', {
+        const response: { data: { data: { user: User; access: string }} } = await api.post('/auth/admin/login/', {
           username,
           password,
         })
-        user.value = response.data.user
-        token.value = response.data.token
+        console.log(response.data.data)
+        user.value = response.data.data.user
+        token.value = response.data.data.access
       } catch (error) {
         console.error('Login error:', error)
         throw error

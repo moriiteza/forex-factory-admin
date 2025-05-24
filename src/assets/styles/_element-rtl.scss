@@ -1,0 +1,134 @@
+.el-row {
+  &.el-center {
+    justify-content: center;
+  }
+}
+
+.el-input__suffix {
+  left: 10px;
+  right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.el-input--suffix .el-input__inner {
+  padding-left: 30px;
+  padding-right: 15px;
+}
+
+.el-select-dropdown__item {
+  padding: 0 15px 0 32px;
+}
+
+.el-form-item__label {
+  padding: 0 0 0 12px;
+}
+
+.el-button + .el-button {
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.el-message__icon {
+  margin-left: 10px;
+  margin-right: 0;
+}
+
+.el-message-box {
+  &__container {
+    display: flex;
+  }
+
+  &__message {
+    padding-left: 12px !important;
+    padding-right: 36px !important;
+  }
+
+  &__title {
+    text-align: right;
+  }
+
+  &__headerbtn {
+    right: auto !important;
+    left: var(--el-messagebox-padding-primary) !important;
+  }
+}
+
+.el-dialog {
+  &__headerbtn {
+    right: auto;
+    left: var(--el-dialog-padding-primary);
+  }
+}
+
+.el-input-group {
+  &--append {
+    .el-input {
+      &__inner {
+        border-radius: var(--el-input-border-radius, var(--el-border-radius-base));
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+
+  &__append {
+    border: 1px solid #dcdfe6;
+    border-right: 0;
+    border-radius: var(--el-input-border-radius, var(--el-border-radius-base));
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+.el-tabs {
+  &__item {
+    padding-right: 0;
+    padding-left: 20px !important;
+  }
+
+  &__nav {
+    float: right !important;
+  }
+
+  &__content {
+    min-height: 400px !important;
+  }
+}
+
+.el-message-box {
+  text-align: right !important;
+}
+
+.el-overlay.is-message-box .el-overlay-message-box {
+  direction: ltr !important;
+}
+
+.el-message-box__content {
+  direction: rtl !important;
+}
+
+.p-4 {
+  padding: 1.25rem !important;
+}
+
+.form-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.form-header span {
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.el-checkbox__label {
+  margin: 10px;
+}
+
+.el-radio-group {
+  direction: initial !important;
+}

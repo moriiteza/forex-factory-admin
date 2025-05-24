@@ -1,0 +1,43 @@
+@use 'fonts';
+@use 'global';
+@use 'element-rtl';
+
+@import 'bootstrap/dist/css/bootstrap.rtl.min.css'; // Keep as @import because it's a CSS file
+@import 'element-plus/dist/index.css';
+
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+}
+
+[data-theme='dark'] {
+  --bg-color: #191818;
+  --text-color: #ffffff;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.el-header {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+}
+
+html {
+  direction: rtl !important;
+}
+
+body {
+  font-family: 'Vazirmatn FD', sans-serif;
+}
+input[type='number'] {
+  direction: rtl !important;
+  -moz-appearance: textfield;
+}
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

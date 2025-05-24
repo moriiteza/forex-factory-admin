@@ -11,10 +11,11 @@ import { RouterView } from 'vue-router'
 <style lang="scss">
 .auth-container {
   min-height: 100vh;
-  width: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  width: 100%;
+  align-items: center;
   background: url(../assets/images/InfoPattern.svg) repeat;
 }
 </style>

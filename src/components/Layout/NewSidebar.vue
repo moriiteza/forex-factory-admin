@@ -17,7 +17,7 @@
       :class="{ 'd-none': isCollapse }"
     >
       <div class="d-block">
-        <img src="@/assets/images/LOGO.png" width="100px" height="100px" alt="logo" />
+        <img src="@/assets/images/LOGO.png" width="60px" height="60px" alt="logo" />
       </div>
     </div>
 
