@@ -31,7 +31,7 @@
           <TextField name="currency_name" label="ارز" placeholder="USD" />
         </div>
         <div class="col-md-6 my-1">
-          <TextField name="currency_market" label="بازار ارز" placeholder="Crypto / Forex" />
+          <EnumSelectField :enum="'calendarType'" name="currency_market" label="بازار ارز" placeholder="Crypto / Forex" />
         </div>
 
         <div class="col-md-6 my-1">
