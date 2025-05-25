@@ -14,11 +14,11 @@ const create = async (data: any) => {
 }
 
 const update = async (id: number, data: any) => {
-  return await axiosInstance.put(`calendars/events-admin/${id}`, data)
+  return await axiosInstance.put(`calendars/events-admin/${id}/`, data)
 }
 
 const remove = async (id: number) => {
-  return await axiosInstance.delete(`calendars/events-admin/${id}`)
+  return await axiosInstance.delete(`calendars/events-admin/${id}/`)
 }
 
 export { fetch, create, update, remove, get }

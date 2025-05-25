@@ -5,6 +5,7 @@
         <el-card>
           <div class="p-0 d-flex">
             <h3>رویداد ها</h3>
+            <el-button class="ms-auto" type="success" round plain @click="formVisible = true"> افزودن</el-button>
           </div>
         </el-card>
       </div>
@@ -28,6 +29,16 @@
       </div>
     </div>
   </div>
+
+  <EventForm
+    :visible="formVisible"
+    :edit-value="formData"
+    @close="
+      formVisible = false;
+      getItems(filters);
+      formData = null
+    "
+  />
 </template>
 
 <script setup lang="ts">
@@ -38,15 +49,16 @@ import type { FilterBuilderInterface } from '@/interfaces/filter-builder'
 import { useRoute, useRouter } from 'vue-router'
 import { fetch } from '@/modules/Calendar/api/calendar.ts'
 import enums from '@/enums/enums.ts'
+import EventForm from '@/modules/Calendar/components/EventForm.vue'
 
 const formVisible = ref(false)
-const formData = ref(null)
+const formData = ref<Object>()
 
 const items: any = ref(null)
 const totalItems = ref(null)
 const loading = ref(false)
 
-let filters
+let filters: any
 
 const tableColumns: TableColumnInterFace[] = [
   {
@@ -102,7 +114,7 @@ const tableColumns: TableColumnInterFace[] = [
     key: 'source_type',
     type: 'formatter',
     sortable: false,
-    formatter: (val) => {
+    formatter: (val: any) => {
       return enums.getById('calendarType', val.source_type)
     },
   },
@@ -115,20 +127,20 @@ const tableColumns: TableColumnInterFace[] = [
     title: '',
     operations: [
       {
-        icon: 'lucide:view',
-        tooltip: 'جزییات',
-        iconColor: 'success',
+        icon: 'material-symbols:edit-outline',
+        tooltip: 'ویرایش',
+        iconColor: 'warning',
         onClick: (row?: any) => {
           formVisible.value = true
           formData.value = row.row.row
         },
       },
       {
-        icon: 'gravity-ui:code-pull-request-check',
-        tooltip: 'درخواست ها',
-        iconColor: 'warning',
+        icon: 'material-symbols:delete-outline',
+        tooltip: 'حذف',
+        iconColor: 'danger',
         onClick: (row?: any) => {
-          router.push({ path: `/posts/requests`, query: { postId: row.row.row.id } })
+          // router.push({ path: `/posts/requests`, query: { postId: row.row.row.id } })
         },
       },
     ],

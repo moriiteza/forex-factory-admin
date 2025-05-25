@@ -13,6 +13,11 @@ export default {
     'energy': 'انرژی',
     'forex': 'فارکس',
   },
+  colorTypes: {
+    'text-red-500': 'قرمز',
+    'text-green-600': 'سبز',
+    '': 'مشکی',
+  },
   getEnumArray(enumItem: string, start = 1) {
     const result = []
     let index = start

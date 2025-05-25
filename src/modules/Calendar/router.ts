@@ -4,7 +4,7 @@ export default [
   {
     path: '/calendar',
     name: 'calendar',
-    component: () => import('./pages/Calendar.vue'),
+    component: () => import('./pages/EventsList.vue'),
     meta: {
       layout: AppLayout,
       requiresAuth: true,
