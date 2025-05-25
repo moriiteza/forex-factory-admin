@@ -1,7 +1,7 @@
 export interface FilterBuilderInterface {
     name: string;
     title: string;
-    type: 'textField' | 'userSelectField' | 'userLevelSelectField' | 'select' | 'date' | 'userStatusSelect' | 'enumSelect';
+    type: 'textField' | 'userSelectField' | 'userLevelSelectField' | 'select' | 'date' | 'userStatusSelect' | 'enumSelect' | 'persianDate';
     options?: FilterBuilderOptions[] // for type "SELECT"
     filterAble?: Boolean // for type "SELECT"
     remoteFilterAble?: Boolean // for type "SELECT"

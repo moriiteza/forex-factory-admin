@@ -239,6 +239,7 @@ const paginate = (paginate: any) => {
 
 const filter = (filter: any) => {
   filters = { ...filter }
+  console.log(filters)
   Object.keys(filters).forEach((key: string) => {
     if (filters[key] && typeof filters[key] === 'object' && Object.keys(filters[key]).includes('en')) {
       filters[key] = filters[key].en

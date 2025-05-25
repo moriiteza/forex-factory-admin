@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <el-card>
           <div class="p-0 d-flex">
-            <h3>سفارشات</h3>
+            <h3>رویداد ها</h3>
           </div>
         </el-card>
       </div>
@@ -16,7 +16,7 @@
             :columns="tableColumns"
             :rows="items"
             :selection="false"
-            :table-name="'لیست سفارشات'"
+            :table-name="'لیست رویداد ها'"
             :layout="'auto'"
             :total-item="totalItems"
             :refresh-button="true"
@@ -70,7 +70,7 @@ const tableColumns: TableColumnInterFace[] = [
   {
     title: 'تاریخ',
     key: 'date',
-    type: 'date',
+    type: 'text',
     sortable: false,
   },
   {

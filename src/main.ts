@@ -14,6 +14,6 @@ pinia.use(piniaPersist)
 
 app.use(pinia)
 app.use(router)
-app.use(ElementPlus, { locale: fa })
+app.use(ElementPlus)
 
 app.mount('#app')

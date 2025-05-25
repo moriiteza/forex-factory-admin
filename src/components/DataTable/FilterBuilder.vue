@@ -2,7 +2,8 @@
   <div class='row'>
     <div class='col-md-2 col-12 px-1 mt-2' v-for='item of props.items'>
       <TextField :icon='item.icon' :name='item.name' :placeholder='item.title' :label='item.label' v-if="item.type === 'textField'" :size="'large'"/>
-      <PersianDatePickerField :name='item.name' :placeholder='item.title' :label='item.label' v-if="item.type === 'date'" :size="'large'" :result-formatter='item.dateFormat'/>
+      <PersianDatePickerField :name='item.name' :placeholder='item.title' :label='item.label' v-if="item.type === 'persianDate'" :size="'large'" :result-formatter='item.dateFormat'/>
+      <DatePickerField :name='item.name' :placeholder='item.title' :label='item.label' v-if="item.type === 'date'" :size="'large'"/>
       <Select :name='item.name' :placeholder='item.title' :label='item.label' :filterable='item.filterAble' :remote-filterable='item.remoteFilterAble' :items='item.options' v-if="item.type === 'select'" :multiple='item.multiple' :size="'large'"/>
       <EnumSelectField :name='item.name' :placeholder='item.title' , :label='item.label' v-if="item.type ==='enumSelect'" :enum='item.enum' :size="'large'"/>
       <CheckboxField :name="item.name" :placeholder="item.title" :label="item.label" , v-if="item.type === 'checkbox'" :size="'large'"/>
@@ -19,7 +20,7 @@ import TextField from '@/components/Form/TextField.vue'
 import Select from '@/components/Form/SelectField.vue'
 import EnumSelectField from '@/components/Form/EnumSelectField.vue'
 import CheckboxField from '@/components/Form/CheckboxField.vue'
-import PersianDatePickerField from '@/components/Form/PersianDatePickerField.vue'
+import DatePickerField from '@/components/Form/DatePickerField.vue'
 import { useRoute } from 'vue-router'
 
 const props = defineProps(['items', 'defaults'])
@@ -42,7 +43,7 @@ const createFilterObject = (data?: any) => {
 
 watch(values, _.debounce(() => {
   createFilterObject(values)
-}, 1000))
+}, 1000), { deep: true, immediate: true })
 
 if (route.query) {
   setTimeout(() => setValues(route.query), 1000)
