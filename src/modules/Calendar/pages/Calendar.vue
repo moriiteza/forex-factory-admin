@@ -12,7 +12,7 @@
     </div>
     <div class="row mt-3">
       <div class="col-md-12">
-        <div class="mt-4 app-card" v-loading="loading">
+        <el-card class="mt-4" v-loading="loading">
           <DataTable
             :columns="tableColumns"
             :rows="items"
@@ -25,7 +25,7 @@
             :table-filters="tableFilters"
             @update-table="updateTable"
           />
-        </div>
+        </el-card>
       </div>
     </div>
   </div>

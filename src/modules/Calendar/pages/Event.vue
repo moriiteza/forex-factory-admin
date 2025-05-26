@@ -5,14 +5,16 @@
         <el-card>
           <div class="p-0 d-flex">
             <h3>رویداد ها</h3>
-            <el-button class="ms-auto" type="success" round plain @click="formVisible = true"> افزودن</el-button>
+            <el-button class="ms-auto" type="success" round plain @click="formVisible = true">
+              افزودن
+            </el-button>
           </div>
         </el-card>
       </div>
     </div>
     <div class="row mt-3">
       <div class="col-md-12">
-        <div class="mt-4 app-card" v-loading="loading">
+        <el-card class="mt-4" v-loading="loading">
           <DataTable
             :columns="tableColumns"
             :rows="items"
@@ -25,13 +27,11 @@
             :table-filters="tableFilters"
             @update-table="updateTable"
           />
-        </div>
+        </el-card>
       </div>
     </div>
   </div>
-
-  <EventForm :visible="formVisible" :edit-value="formData" @close="closeForm"
-  />
+  <EventForm :visible="formVisible" :edit-value="formData" @close="closeForm" />
 </template>
 
 <script setup lang="ts">
@@ -133,9 +133,9 @@ const filter = (filter: any) => {
 }
 
 const closeForm = () => {
-  formVisible.value = false;
+  formVisible.value = false
   formData.value = null
-  getItems(filters);
+  getItems(filters)
 }
 
 const updateTable = (event: boolean) => {
