@@ -281,9 +281,4 @@ const handleSelectionChange = (val: any) => {
   transition: 0.3s all;
 }
 
-:deep(.el-table__body) {
-  th {
-    background-color: #f4f5fe;
-  }
-}
 </style>

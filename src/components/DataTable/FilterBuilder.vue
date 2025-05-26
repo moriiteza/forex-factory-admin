@@ -22,6 +22,7 @@ import EnumSelectField from '@/components/Form/EnumSelectField.vue'
 import CheckboxField from '@/components/Form/CheckboxField.vue'
 import DatePickerField from '@/components/Form/DatePickerField.vue'
 import { useRoute } from 'vue-router'
+import PersianDatePickerField from '@/components/Form/PersianDatePickerField.vue'
 
 const props = defineProps(['items', 'defaults'])
 const emits = defineEmits(['filter'])
