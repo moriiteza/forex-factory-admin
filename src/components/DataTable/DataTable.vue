@@ -32,53 +32,53 @@
     >
       <!-- Handle type of text      -->
       <template #default="scope" v-if="column.type === 'text'">
-        <el-tooltip :content="scope.row[column.key]">
+        <el-tooltip :content="getValueByPath(scope.row, column.key)">
           <div class="text-overlay" :style="{ 'max-width': column.width }">
-            {{ scope.row[column.key] }}
+            {{ getValueByPath(scope.row, column.key) }}
           </div>
         </el-tooltip>
       </template>
 
       <!-- Handle type of text      -->
       <template #default="scope" v-if="column.type === 'price'">
-        <el-tooltip :content="scope.row[column.key]">
+        <el-tooltip :content="getValueByPath(scope.row, column.key)">
           <div class="text-overlay" :style="{ 'max-width': column.width }">
-            {{ new Intl.NumberFormat('fa-IR').format(scope.row[column.key]) }}
+            {{ new Intl.NumberFormat('fa-IR').format(getValueByPath(scope.row, column.key)) }}
           </div>
         </el-tooltip>
       </template>
 
       <!-- Handle type of boolean      -->
       <template #default="scope" v-if="column.type === 'boolean'">
-        <el-tooltip :content="scope.row[column.key]">
+        <el-tooltip :content="getValueByPath(scope.row, column.key)">
           <div class="text-overlay" :style="{ 'max-width': column.width }">
-            {{ scope.row[column.key] === true ? 'بله' : 'خیر' }}
+            {{ getValueByPath(scope.row, column.key) === true ? 'بله' : 'خیر' }}
           </div>
         </el-tooltip>
       </template>
 
       <!-- Handle type of image      -->
       <template #default="scope" v-if="column.type === 'image'">
-        <el-tooltip :content="scope.row[column.key]">
-          <img :src="scope.row[column.key]" style="width: 50px; height: 50px; border-radius: 50%" />
+        <el-tooltip :content="getValueByPath(scope.row, column.key)">
+          <img :src="getValueByPath(scope.row, column.key)" style="width: 50px; height: 50px; border-radius: 50%" />
         </el-tooltip>
       </template>
 
       <!-- Handle type of date      -->
       <template #default="scope" v-if="column.type === 'date'">
-        <div v-html="simpleDate(scope.row[column.key])"></div>
+        <div v-html="simpleDate(getValueByPath(scope.row, column.key))"></div>
       </template>
 
       <!-- Handle type of date with tag      -->
       <template #default="scope" v-if="column.type === 'tagDate'">
         <el-tag v-if="column.tagMode" :type="column.tagType" class="py-4 px-4">
-          <div v-html="convertDate(scope.row[column.key])"></div>
+          <div v-html="convertDate(getValueByPath(scope.row, column.key))"></div>
         </el-tag>
       </template>
 
       <!-- Handle type of tag      -->
       <template #default="scope" v-if="column.type === 'tag'">
-        <el-tag class="p-3" :type="column.tagType">{{ scope.row[column.key] }}</el-tag>
+        <el-tag class="p-3" :type="column.tagType">{{ getValueByPath(scope.row, column.key) }}</el-tag>
       </template>
 
       <!-- Handle type of operation      -->
@@ -105,7 +105,7 @@
       <!-- Handle type of Introduction Icons   -->
       <template #default="scope" v-if="column.type === 'icon'">
         <el-tooltip :content="scope.row[column.tooltip]">
-          <Icon :icon="scope.row[column.key]" width="25" />
+          <Icon :icon="getValueByPath(scope.row, column.key)" width="25" />
         </el-tooltip>
       </template>
 
@@ -154,6 +154,7 @@ import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
 import FilterBuilder from '../../components/DataTable/FilterBuilder.vue'
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
+import { getValueByPath } from '@/utilites/nested.ts'
 
 const props = defineProps([
   'rows',

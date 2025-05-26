@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <el-card>
           <div class="p-0 d-flex">
-            <h3>رویداد ها</h3>
+            <h3>تقویم</h3>
             <el-button class="ms-auto" type="success" round plain @click="formVisible = true"> افزودن</el-button>
           </div>
         </el-card>
@@ -17,7 +17,7 @@
             :columns="tableColumns"
             :rows="items"
             :selection="false"
-            :table-name="'لیست رویداد ها'"
+            :table-name="'لیست داده های تقویم'"
             :layout="'auto'"
             :total-item="totalItems"
             :refresh-button="true"
@@ -30,15 +30,7 @@
     </div>
   </div>
 
-  <EventForm
-    :visible="formVisible"
-    :edit-value="formData"
-    @close="
-      formVisible = false;
-      getItems(filters);
-      formData = null
-    "
-  />
+  <CalendarForm :visible="formVisible" :edit-value="formData" @close="closeForm" />
 </template>
 
 <script setup lang="ts">
@@ -46,13 +38,12 @@ import { ref } from 'vue'
 import DataTable from '@/components/DataTable/DataTable.vue'
 import type { TableColumnInterFace } from '@/interfaces/table'
 import type { FilterBuilderInterface } from '@/interfaces/filter-builder'
-import { useRoute, useRouter } from 'vue-router'
 import { fetch } from '@/modules/Calendar/api/calendar.ts'
 import enums from '@/enums/enums.ts'
-import EventForm from '@/modules/Calendar/components/EventForm.vue'
+import CalendarForm from '@/modules/Calendar/components/CalendarForm.vue'
 
 const formVisible = ref(false)
-const formData = ref<Object>()
+const formData = ref<{} | null>(null)
 
 const items: any = ref(null)
 const totalItems = ref(null)
@@ -69,13 +60,13 @@ const tableColumns: TableColumnInterFace[] = [
   },
   {
     title: 'نام',
-    key: 'event_name',
+    key: 'event.event_name',
     type: 'text',
     sortable: false,
   },
   {
     title: 'نام فارسی',
-    key: 'event_name_fa',
+    key: 'event.event_name_fa',
     type: 'text',
     sortable: false,
   },
@@ -171,18 +162,6 @@ const tableFilters: FilterBuilderInterface[] = [
     icon: true,
   },
   {
-    name: 'event_name',
-    type: 'textField',
-    title: 'نام',
-    icon: true,
-  },
-  {
-    name: 'event_name_fa',
-    type: 'textField',
-    title: 'نام فارسی',
-    icon: true,
-  },
-  {
     name: 'date',
     type: 'date',
     title: 'تاریخ',
@@ -196,8 +175,6 @@ const tableFilters: FilterBuilderInterface[] = [
     icon: true,
   },
 ]
-
-const router = useRouter()
 
 const getItems = (filter?: any) => {
   loading.value = true
@@ -215,5 +192,11 @@ const filter = (filter: any) => {
 
 const updateTable = (event: boolean) => {
   getItems(filters)
+}
+
+const closeForm = () => {
+  formVisible.value = false;
+  formData.value = null
+  getItems(filters);
 }
 </script>

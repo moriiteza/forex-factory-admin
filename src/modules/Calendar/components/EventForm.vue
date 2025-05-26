@@ -1,15 +1,15 @@
 <template>
   <el-dialog
-    v-model='visible'
-    :append-to-body='true'
-    class='el-dialog--center'
-    :close-on-press-escape='false'
-    :close-on-click-modal='false'
-    :before-close='closeForm'
-    :destroy-on-close='true'
-    :show-close='false'
-    @opened='openForm'
-    :width='750'
+    v-model="visible"
+    :append-to-body="true"
+    class="el-dialog--center"
+    :close-on-press-escape="false"
+    :close-on-click-modal="false"
+    :before-close="closeForm"
+    :destroy-on-close="true"
+    :show-close="false"
+    @opened="openForm"
+    :width="750"
   >
     <template #header>
       <div class="form-header">
@@ -27,90 +27,8 @@
           <TextField name="event_name_fa" label="عنوان رویداد (فارسی)" placeholder="..." required />
         </div>
 
-        <div class="col-md-6 my-1">
-          <TextField name="currency_name" label="ارز" placeholder="USD" />
-        </div>
-        <div class="col-md-6 my-1">
-          <EnumSelectField :enum="'calendarType'" name="currency_market" label="بازار ارز" placeholder="Crypto / Forex" />
-        </div>
-
-        <div class="col-md-6 my-1">
-          <DatePickerField name="date" label="تاریخ رویداد" placeholder="YYYY-MM-DD" result-formatter="YYYY-MM-DD" />
-        </div>
-        <div class="col-md-6 my-1">
-          <TextField name="time" label="ساعت رویداد" placeholder="13:00" />
-        </div>
-
-        <div class="col-md-4 my-1">
-          <TextField name="actual" label="Actual" />
-        </div>
-        <div class="col-md-4 my-1">
-          <TextField name="forecast" label="Forecast" />
-        </div>
-        <div class="col-md-4 my-1">
-          <TextField name="previous" label="Previous" />
-        </div>
-
-        <div class="col-md-6 my-3">
-          <TextField name="impact" label="Impact" />
-        </div>
-        <div class="col-md-6 my-3">
-          <TextField name="revised" label="Revised" />
-        </div>
-
-        <div class="col-md-6 my-3">
-          <DatePickerField name="next_release" label="انتشار بعدی" result-formatter="YYYY-MM-DD" />
-        </div>
-        <div class="col-md-6 my-3">
-          <TextField name="ff_notice" label="توضیح" />
-        </div>
-
-        <div class="col-md-6 my-3">
-          <TextField name="source_name" label="منبع" />
-        </div>
-        <div class="col-md-6 my-3">
-          <TextField name="source_link" label="لینک منبع" />
-        </div>
-
-        <div class="col-md-6 my-3">
-          <EnumSelectField :enum="'calendarType'" name="source_type" label="نوع منبع" />
-        </div>
-        <div class="col-md-6 my-3">
-          <TextField name="currency_symbol" label="نماد ارز" />
-        </div>
-
-        <div class="col-md-12 my-3">
-          <TextField name="time_model_name" label="مدل زمانی" />
-        </div>
-
-        <div class="col-md-4 my-3">
-          <TextField name="impact_crypto" label="Impact Crypto" />
-        </div>
-        <div class="col-md-4 my-3">
-          <TextField name="impact_energy" label="Impact Energy" />
-        </div>
-        <div class="col-md-4 my-3">
-          <TextField name="impact_metal" label="Impact Metal" />
-        </div>
-      </div>
-
-      <!-- Nested Event Data -->
-      <div class="row mt-3">
-        <div class="col-12">
-          <h6>اطلاعات تکمیلی</h6>
-        </div>
-        <div class="col-md-6 my-1" v-for="field in ['measures', 'usual_effect', 'frequently', 'ff_note', 'why_trader_cares']" :key="field">
-          <TextField :name="`event_data.${field}`" :label="field" />
-        </div>
-      </div>
-
-      <!-- Nested Color Data -->
-      <div class="row mt-3">
-        <div class="col-12">
-          <h6>اطلاعات رنگ</h6>
-        </div>
-        <div class="col-md-6 my-1" v-for="field in ['actual_color', 'revised_color', 'actual_color_crypto', 'actual_color_energy']" :key="field">
-          <EnumSelectField :placeholder="field" :enum="'colorTypes'" :name="`color_data.${field}`" :label="field" />
+        <div class="col-md-6 my-1" v-for="field in textFields" :key="field.name">
+          <TextField :name="field.name" :label="field.label" />
         </div>
       </div>
 
@@ -130,18 +48,20 @@
   </el-dialog>
 </template>
 
-<script setup lang="ts">
-import { ref, toRefs } from 'vue'
+<script lang="ts" setup>
+import { type PropType, ref, toRefs } from 'vue'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 import TextField from '@/components/Form/TextField.vue'
-import DatePickerField from '@/components/Form/DatePickerField.vue'
-import EnumSelectField from '@/components/Form/EnumSelectField.vue'
 import { update, create } from '@/modules/Calendar/api/calendar.ts'
 
 const props = defineProps({
   visible: Boolean,
-  editValue: Object
+  editValue: {
+    type: Object as PropType<Record<string, any> | null>,
+    required: false,
+    default: null
+  }
 })
 const { visible, editValue } = toRefs(props)
 
@@ -149,53 +69,47 @@ const emits = defineEmits(['close'])
 
 const loading = ref(false)
 
-const openForm = () => {
-  const data = editValue?.value || null
+const textFields = [
+  { name: 'measures', label: 'شاخص‌ها' },
+  { name: 'usual_effect', label: 'اثر معمول' },
+  { name: 'usual_effect_crypto', label: 'اثر در کریپتو' },
+  { name: 'usual_effect_energy', label: 'اثر در انرژی' },
+  { name: 'usual_effect_metals', label: 'اثر در فلزات' },
+  { name: 'frequently', label: 'تناوب' },
+  { name: 'ff_note', label: 'یادداشت' },
+  { name: 'why_trader_cares', label: 'چرا مهم است' },
+  { name: 'derived_via', label: 'مشتق شده از' },
+  { name: 'speaker', label: 'سخنران' },
+  { name: 'also_called', label: 'نام‌های دیگر' },
+  { name: 'acro_expand', label: 'اختصار' },
+  { name: 'intro_link', label: 'لینک معرفی' },
+  { name: 'intro_link_text', label: 'متن لینک معرفی' },
+  { name: 'source_name', label: 'منبع' },
+  { name: 'source_link', label: 'لینک منبع' },
+]
 
-  const cleaned = data ? {
-    ...data,
-    event_data: data.event_data || {},
-    color_data: {
-      actual_color: data.color_data?.actual?.default || '',
-      revised_color: data.color_data?.revised?.default || '',
-      actual_color_crypto: data.color_data?.actual?.crypto || '',
-      actual_color_energy: data.color_data?.actual?.energy || '',
-    },
-  } : {
-    event_name: '',
-    event_name_fa: '',
-    currency_name: '',
-    currency_market: '',
-    date: '',
-    time: '',
-    actual: '',
-    forecast: '',
-    previous: '',
-    impact: '',
-    revised: '',
-    next_release: '',
-    ff_notice: '',
-    source_name: '',
-    source_link: '',
-    source_type: '',
-    currency_symbol: '',
-    time_model_name: '',
-    impact_crypto: '',
-    impact_energy: '',
-    impact_metal: '',
-    event_data: {
-      measures: '',
-      usual_effect: '',
-      frequently: '',
-      ff_note: '',
-      why_trader_cares: '',
-    },
-    color_data: {
-      actual_color: '',
-      revised_color: '',
-      actual_color_crypto: '',
-      actual_color_energy: '',
-    },
+const openForm = () => {
+  const data = editValue?.value || {}
+
+  const cleaned = {
+    event_name: data.event_name || '',
+    event_name_fa: data.event_name_fa || '',
+    measures: data.measures || '',
+    usual_effect: data.usual_effect || '',
+    usual_effect_crypto: data.usual_effect_crypto || '',
+    usual_effect_energy: data.usual_effect_energy || '',
+    usual_effect_metals: data.usual_effect_metals || '',
+    frequently: data.frequently || '',
+    ff_note: data.ff_note || '',
+    why_trader_cares: data.why_trader_cares || '',
+    derived_via: data.derived_via || '',
+    speaker: data.speaker || '',
+    also_called: data.also_called || '',
+    acro_expand: data.acro_expand || '',
+    intro_link: data.intro_link || '',
+    intro_link_text: data.intro_link_text || '',
+    source_name: data.source_name || '',
+    source_link: data.source_link || '',
   }
 
   setValues(cleaned)
@@ -208,69 +122,38 @@ const closeForm = () => {
 const schema = yup.object({
   event_name: yup.string().required('ضروری است'),
   event_name_fa: yup.string().required('ضروری است'),
-  currency_name: yup.string().nullable(),
-  currency_market: yup.string().nullable(),
-  date: yup.string().required('ضروری است'),
-  time: yup.string().nullable(),
-  actual: yup.string().nullable(),
-  forecast: yup.string().nullable(),
-  previous: yup.string().nullable(),
-  impact: yup.string().nullable(),
-  revised: yup.string().nullable(),
-  next_release: yup.string().nullable(),
-  ff_notice: yup.string().nullable(),
+  measures: yup.string().nullable(),
+  usual_effect: yup.string().nullable(),
+  usual_effect_crypto: yup.string().nullable(),
+  usual_effect_energy: yup.string().nullable(),
+  usual_effect_metals: yup.string().nullable(),
+  frequently: yup.string().nullable(),
+  ff_note: yup.string().nullable(),
+  why_trader_cares: yup.string().nullable(),
+  derived_via: yup.string().nullable(),
+  speaker: yup.string().nullable(),
+  also_called: yup.string().nullable(),
+  acro_expand: yup.string().nullable(),
+  intro_link: yup.string().nullable(),
+  intro_link_text: yup.string().nullable(),
   source_name: yup.string().nullable(),
   source_link: yup.string().nullable(),
-  source_type: yup.string().nullable(),
-  currency_symbol: yup.string().nullable(),
-  time_model_name: yup.string().nullable(),
-  impact_crypto: yup.string().nullable(),
-  impact_energy: yup.string().nullable(),
-  impact_metal: yup.string().nullable(),
-  event_data: yup.object({
-    measures: yup.string().nullable(),
-    usual_effect: yup.string().nullable(),
-    frequently: yup.string().nullable(),
-    ff_note: yup.string().nullable(),
-    why_trader_cares: yup.string().nullable(),
-  }),
-  color_data: yup.object({
-    actual_color: yup.string().nullable(),
-    revised_color: yup.string().nullable(),
-    actual_color_crypto: yup.string().nullable(),
-    actual_color_energy: yup.string().nullable(),
-  }),
 })
 
-const { handleSubmit, resetForm, setValues } = useForm({
+const { handleSubmit, setValues } = useForm({
   validationSchema: schema,
 })
 
 const submitForm = handleSubmit(async (values) => {
   try {
     loading.value = true
-    const payload = {
-      ...values,
-      color_data: {
-        actual: {
-          default: values.color_data.actual_color || null,
-          crypto: values.color_data.actual_color_crypto || null,
-          energy: values.color_data.actual_color_energy || null,
-          metal: null
-        },
-        revised: {
-          default: values.color_data.revised_color || null,
-          crypto: null,
-          energy: null,
-          metal: null
-        }
-      }
-    }
+
     if (editValue?.value?.id) {
-      await update(editValue?.value?.id, payload)
+      await update(editValue.value.id, values)
     } else {
-      await create(payload)
+      await create(values)
     }
+
     closeForm()
   } catch (error) {
     console.error('Error submitting form:', error)
@@ -278,10 +161,4 @@ const submitForm = handleSubmit(async (values) => {
     loading.value = false
   }
 })
-
 </script>
-
-
-<style scoped>
-
-</style>

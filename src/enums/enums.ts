@@ -18,6 +18,12 @@ export default {
     'text-green-600': 'سبز',
     '': 'مشکی',
   },
+  impactType: {
+    'high': 'بالا',
+    'low': 'پایین',
+    'mid': 'بدون اثر',
+    'none': 'نا مشخص',
+  },
   getEnumArray(enumItem: string, start = 1) {
     const result = []
     let index = start
