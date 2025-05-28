@@ -1,4 +1,4 @@
-FROM node:22-alpine3.19 as build
+FROM docker.arvancloud.ir/node:22-alpine3.19 as build
 
 WORKDIR /app
 
@@ -10,13 +10,9 @@ RUN yarn install
 
 COPY . /app
 
-ARG ENV_FILE=.env.prodcution
-
-COPY ${ENV_FILE} .env
-
 RUN npm run build
 
-FROM nginx:1.23.4-alpine as production
+FROM docker.arvancloud.ir/nginx:1.23.4-alpine as production
 
 COPY --from=build /app/dist /usr/share/nginx/html
 
