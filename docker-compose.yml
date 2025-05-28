@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   forex-admin-front:
-    container_name: forex_user_front
+    container_name: forex_admin_front
     restart: always
     build:
       context: .
