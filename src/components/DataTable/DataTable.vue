@@ -91,7 +91,7 @@
             class="mx-1"
             :type="op.iconColor"
             v-if="op.show || !Object.keys(op).includes('show')"
-            @click="op.onClick({ actionHandler: actionHandler, row: scope })"
+            @click="op.onClick({ row: scope })"
           >
             <Icon :icon="op.icon" />
           </el-button>
@@ -128,7 +128,7 @@
         <el-button
           :type="column.buttonColor"
           class="w-100"
-          @click="column.onClick({ actionHandler: actionHandler, row: scope })"
+          @click="column.onClick({ row: scope })"
         >
           {{ column.title }}
         </el-button>

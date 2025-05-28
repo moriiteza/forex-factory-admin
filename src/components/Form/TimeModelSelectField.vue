@@ -78,7 +78,7 @@ const items = [
   'کل‌روز',
 ]
 
-const name = toRef(props, 'name')
+const name: any = toRef(props, 'name')
 
 const {
   value: inputValue,
