@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  forex-admin-front:
+    container_name: forex_user_front
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8005:8005'
+    networks:
+      - nginx_network
+networks:
+  nginx_network:
+    driver: bridge
+    name: nginx_network
+    external: true
