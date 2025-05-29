@@ -5,7 +5,7 @@ import { ElMessage } from 'element-plus'
 
 // Base API URL (Change to your backend URL)
 const api = axios.create({
-  baseURL: 'https://forex-back.inaseri-dev.ir/api',
+  baseURL: 'https://forex-backend.inaseri-dev.ir/api',
   headers: { 'Content-Type': 'application/json' },
 })
 
