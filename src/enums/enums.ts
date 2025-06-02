@@ -20,9 +20,9 @@ export default {
   },
   impactType: {
     'high': 'بالا',
-    'low': 'پایین',
-    'mid': 'بدون اثر',
-    'none': 'نا مشخص',
+    'low': 'کم',
+    'mid': 'متوسط',
+    'none': 'غیر اقتصادی',
   },
   getEnumArray(enumItem: string, start = 1) {
     const result = []

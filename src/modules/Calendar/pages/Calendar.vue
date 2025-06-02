@@ -106,7 +106,12 @@ const tableColumns: TableColumnInterFace[] = [
     type: 'formatter',
     sortable: false,
     formatter: (val: any) => {
-      return enums.getById('calendarType', val.source_type)
+      let sourceType = ''
+      val.source_type.forEach((item: any) => {
+        sourceType += enums.getById('calendarType', item.key)
+        sourceType += ', '
+      })
+      return sourceType
     },
   },
   {
@@ -162,16 +167,28 @@ const tableFilters: FilterBuilderInterface[] = [
     icon: true,
   },
   {
-    name: 'date',
+    name: 'start_date',
     type: 'date',
-    title: 'تاریخ',
+    title: 'تاریخ از',
+    icon: true,
+  },
+  {
+    name: 'end_date',
+    type: 'date',
+    title: 'تاریخ تا',
     icon: true,
   },
   {
     name: 'source_type',
-    type: 'enumSelect',
+    type: 'sourceType',
     title: 'تقویم',
-    enum: 'calendarType',
+    multiple: true,
+    icon: true,
+  },
+  {
+    name: 'event',
+    type: 'eventSelect',
+    title: 'رویداد',
     icon: true,
   },
 ]

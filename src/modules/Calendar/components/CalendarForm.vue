@@ -25,7 +25,7 @@
         </div>
 
         <div class="col-md-6 my-1">
-          <EnumSelectField :enum="'calendarType'" name="source_type" placeholder="تقویم" label="تقویم" />
+          <SourceTypeSelectField :multiple="true" :enum="'calendarType'" name="source_type" placeholder="تقویم" label="تقویم" />
         </div>
 
         <div class="col-md-6 my-1">
@@ -74,7 +74,7 @@
         </div>
 
         <div class="col-md-6 my-1">
-          <TextField name="ff_notice" label="توضیح" />
+          <TextField name="ff_notice" label="اطلاعیه" />
         </div>
 
         <div class="col-md-12 my-1">
@@ -130,6 +130,7 @@ import EventSelectField from '@/components/Form/EventSelectField.vue'
 import CurrencySelectField from '@/components/Form/CurrencySelectField.vue'
 import TimeModelSelectField from '@/components/Form/TimeModelSelectField.vue'
 import TimePickerField from '@/components/Form/TimePickerField.vue'
+import SourceTypeSelectField from '@/components/Form/SourceTypeSelectField.vue'
 
 const props = defineProps({
   visible: Boolean,
@@ -147,12 +148,15 @@ const loading = ref(false)
 
 const openForm = () => {
   const data = editValue?.value || null
+  const sourceTypes = editValue?.value?.source_type.map((el: any) => el.id) || null
+  console.log(sourceTypes)
 
   const cleaned = data
     ? {
       ...data,
       color_data: data.color_data || {},
-      event: data?.event?.id
+      event: data?.event?.id,
+      source_type: sourceTypes
     }
     : {
       date: '',
@@ -201,7 +205,7 @@ const schema = yup.object({
   description: yup.string().nullable(),
   next_release: yup.string().nullable(),
   ff_notice: yup.string().nullable(),
-  source_type: yup.string().nullable(),
+  source_type: yup.array().nullable(),
   currency_name: yup.string().nullable(),
   currency_symbol: yup.string().nullable(),
   currency_market: yup.string().nullable(),

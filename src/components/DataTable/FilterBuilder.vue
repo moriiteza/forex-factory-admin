@@ -7,6 +7,8 @@
       <Select :name='item.name' :placeholder='item.title' :label='item.label' :filterable='item.filterAble' :remote-filterable='item.remoteFilterAble' :items='item.options' v-if="item.type === 'select'" :multiple='item.multiple' :size="'large'"/>
       <EnumSelectField :name='item.name' :placeholder='item.title' , :label='item.label' v-if="item.type ==='enumSelect'" :enum='item.enum' :size="'large'"/>
       <CheckboxField :name="item.name" :placeholder="item.title" :label="item.label" , v-if="item.type === 'checkbox'" :size="'large'"/>
+      <SourceTypeSelectField :multiple="item.multiple" :name="item.name" :placeholder="item.title" :label="item.label" , v-if="item.type === 'sourceType'" :size="'large'"/>
+      <EventSelectField :name="item.name" :placeholder="item.title" :label="item.label" , v-if="item.type === 'eventSelect'" :size="'large'"/>
     </div>
   </div>
 </template>
@@ -23,6 +25,8 @@ import CheckboxField from '@/components/Form/CheckboxField.vue'
 import DatePickerField from '@/components/Form/DatePickerField.vue'
 import { useRoute } from 'vue-router'
 import PersianDatePickerField from '@/components/Form/PersianDatePickerField.vue'
+import SourceTypeSelectField from '@/components/Form/SourceTypeSelectField.vue'
+import EventSelectField from '@/components/Form/EventSelectField.vue'
 
 const props = defineProps(['items', 'defaults'])
 const emits = defineEmits(['filter'])

@@ -21,10 +21,10 @@
     <el-form @submit.prevent="submitForm" :disabled="loading">
       <div class="row m-0">
         <div class="col-md-6 my-1">
-          <TextField name="event_name" label="عنوان رویداد (انگلیسی)" placeholder="..." required />
+          <TextField name="event_name" label="Event Name" placeholder="..." required />
         </div>
         <div class="col-md-6 my-1">
-          <TextField name="event_name_fa" label="عنوان رویداد (فارسی)" placeholder="..." required />
+          <TextField name="event_name_fa" label="Persian Event Name" placeholder="..." required />
         </div>
 
         <div class="col-md-6 my-1" v-for="field in textFields" :key="field.name">
@@ -70,22 +70,22 @@ const emits = defineEmits(['close'])
 const loading = ref(false)
 
 const textFields = [
-  { name: 'measures', label: 'شاخص‌ها' },
-  { name: 'usual_effect', label: 'اثر معمول' },
-  { name: 'usual_effect_crypto', label: 'اثر در کریپتو' },
-  { name: 'usual_effect_energy', label: 'اثر در انرژی' },
-  { name: 'usual_effect_metals', label: 'اثر در فلزات' },
-  { name: 'frequently', label: 'تناوب' },
-  { name: 'ff_note', label: 'یادداشت' },
-  { name: 'why_trader_cares', label: 'چرا مهم است' },
-  { name: 'derived_via', label: 'مشتق شده از' },
-  { name: 'speaker', label: 'سخنران' },
-  { name: 'also_called', label: 'نام‌های دیگر' },
-  { name: 'acro_expand', label: 'اختصار' },
-  { name: 'intro_link', label: 'لینک معرفی' },
-  { name: 'intro_link_text', label: 'متن لینک معرفی' },
-  { name: 'source_name', label: 'منبع' },
-  { name: 'source_link', label: 'لینک منبع' },
+  { name: 'measures', label: 'Measures' },
+  { name: 'usual_effect', label: 'Usual Effect' },
+  { name: 'usual_effect_crypto', label: 'Usual Effect Crypto' },
+  { name: 'usual_effect_energy', label: 'Usual Effect Energy' },
+  { name: 'usual_effect_metals', label: 'Usual Effect Metal' },
+  { name: 'frequently', label: 'Frequently' },
+  { name: 'ff_note', label: 'FF note' },
+  { name: 'why_trader_cares', label: 'Why Trader Cares' },
+  { name: 'derived_via', label: 'Derived Via' },
+  { name: 'speaker', label: 'Speaker' },
+  { name: 'also_called', label: 'Also Called' },
+  { name: 'acro_expand', label: 'Acro Expand' },
+  { name: 'intro_link', label: 'Intro Link' },
+  { name: 'intro_link_text', label: 'Intro Link Text' },
+  { name: 'source_name', label: 'Source Name' },
+  { name: 'source_link', label: 'Source Link' },
 ]
 
 const openForm = () => {
