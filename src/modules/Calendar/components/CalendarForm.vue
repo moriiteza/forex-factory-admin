@@ -272,9 +272,13 @@ const schema = yup.object({
   impact_metal: yup.string().nullable(),
   color_data: yup.object({
     actual_color: yup.string().nullable(),
-    revised_color: yup.string().nullable(),
     actual_color_crypto: yup.string().nullable(),
     actual_color_energy: yup.string().nullable(),
+    actual_color_metal: yup.string().nullable(),
+    revised_color: yup.string().nullable(),
+    revised_color_crypto: yup.string().nullable(),
+    revised_color_metal: yup.string().nullable(),
+    revised_color_energy: yup.string().nullable(),
   }),
 })
 
@@ -292,13 +296,13 @@ const submitForm = handleSubmit(async (values) => {
           default: values.color_data.actual_color || null,
           crypto: values.color_data.actual_color_crypto || null,
           energy: values.color_data.actual_color_energy || null,
-          metal: null,
+          metal: values.color_data.actual_color_metal || null,
         },
         revised: {
           default: values.color_data.revised_color || null,
-          crypto: null,
-          energy: null,
-          metal: null,
+          crypto: values.color_data.revised_color_crypto || null,
+          energy: values.color_data.revised_color_energy || null,
+          metal: values.color_data.revised_color_metal || null,
         },
       },
     }
