@@ -25,7 +25,13 @@
         </div>
 
         <div class="col-md-6 my-1">
-          <SourceTypeSelectField :multiple="true" :enum="'calendarType'" name="source_type" placeholder="تقویم" label="تقویم" />
+          <SourceTypeSelectField
+            :multiple="true"
+            :enum="'calendarType'"
+            name="source_type"
+            placeholder="تقویم"
+            label="تقویم"
+          />
         </div>
 
         <div class="col-md-6 my-1">
@@ -41,7 +47,7 @@
         </div>
 
         <div class="col-md-6 my-1">
-          <CurrencySelectField placeholder="انتخاب کنید" name="currency_name" label="نام ارز"/>
+          <CurrencySelectField placeholder="انتخاب کنید" name="currency_name" label="نام ارز" />
         </div>
 
         <div class="col-md-12 my-1">
@@ -58,13 +64,6 @@
           <TextField name="previous" label="مقدار قبلی" />
         </div>
 
-        <div class="col-md-12 my-1">
-          <el-divider content-position="right">تاثیرات</el-divider>
-        </div>
-
-        <div class="col-md-6 my-1">
-          <EnumSelectField enum="impactType" placeholder="انتخاب کنید" name="impact" label="Impact" />
-        </div>
         <div class="col-md-6 my-1">
           <TextField name="revised" label="Revised" />
         </div>
@@ -73,37 +72,93 @@
           <DatePickerField name="next_release" label="انتشار بعدی" />
         </div>
 
+        <div class="col-md-12 my-1">
+          <el-divider content-position="right">تاثیرات</el-divider>
+        </div>
+
         <div class="col-md-6 my-1">
-          <TextField name="ff_notice" label="اطلاعیه" />
+          <EnumSelectField
+            enum="impactType"
+            placeholder="انتخاب کنید"
+            name="impact"
+            label="Impact"
+          />
+        </div>
+
+        <div class="col-md-6 my-1">
+          <EnumSelectField
+            enum="impactType"
+            placeholder="انتخاب کنید"
+            name="impact_crypto"
+            label="Impact Crypto"
+          />
+        </div>
+        <div class="col-md-6 my-1">
+          <EnumSelectField
+            enum="impactType"
+            placeholder="انتخاب کنید"
+            name="impact_energy"
+            label="Impact Energy"
+          />
+        </div>
+        <div class="col-md-6 my-1">
+          <EnumSelectField
+            enum="impactType"
+            placeholder="انتخاب کنید"
+            name="impact_metal"
+            label="Impact Metal"
+          />
         </div>
 
         <div class="col-md-12 my-1">
           <el-divider content-position="right">سایر اطلاعات</el-divider>
         </div>
 
-        <div class="col-md-4 my-1">
-          <EnumSelectField enum="impactType" placeholder="انتخاب کنید" name="impact_crypto" label="Impact Crypto" />
-        </div>
-        <div class="col-md-4 my-1">
-          <EnumSelectField enum="impactType" placeholder="انتخاب کنید" name="impact_energy" label="Impact Energy" />
-        </div>
-        <div class="col-md-4 my-1">
-          <EnumSelectField enum="impactType" placeholder="انتخاب کنید" name="impact_metal" label="Impact Metal" />
+        <div class="col-md-12 my-1">
+          <TextField name="ff_notice" label="اطلاعیه" />
         </div>
 
         <div class="col-md-12 my-1">
           <TextField name="description" label="توضیحات" />
         </div>
 
+        <div class="col-md-12 my-1">
+          <el-divider content-position="right">اطلاعات رنگ ها</el-divider>
+        </div>
+
         <!-- color_data -->
-        <div class="col-md-6 my-1" v-for="(field, i) in ['actual_color', 'revised_color', 'actual_color_crypto', 'actual_color_energy']" :key="i">
-          <EnumSelectField :enum="'colorTypes'" placeholder="انتخاب کنید" :name="`color_data.${field}`" :label="field" />
+        <div
+          class="col-md-6 my-1"
+          v-for="(field, i) in [
+            'actual_color',
+            'actual_color_crypto',
+            'actual_color_energy',
+            'actual_color_metal',
+            'revised_color',
+            'revised_color_crypto',
+            'revised_color_energy',
+            'revised_color_metal',
+          ]"
+          :key="i"
+        >
+          <EnumSelectField
+            :enum="'colorTypes'"
+            placeholder="انتخاب کنید"
+            :name="`color_data.${field}`"
+            :label="field"
+          />
         </div>
       </div>
 
       <div class="row justify-content-center mt-4">
         <div class="col-md-3">
-          <el-button type="primary" native-type="submit" :loading="loading" :disabled="loading" class="w-100">
+          <el-button
+            type="primary"
+            native-type="submit"
+            :loading="loading"
+            :disabled="loading"
+            class="w-100"
+          >
             ذخیره
           </el-button>
         </div>
@@ -114,7 +169,6 @@
         </div>
       </div>
     </el-form>
-
   </el-dialog>
 </template>
 
@@ -149,42 +203,45 @@ const loading = ref(false)
 const openForm = () => {
   const data = editValue?.value || null
   const sourceTypes = editValue?.value?.source_type.map((el: any) => el.id) || null
-  console.log(sourceTypes)
 
   const cleaned = data
     ? {
-      ...data,
-      color_data: data.color_data || {},
-      event: data?.event?.id,
-      source_type: sourceTypes
-    }
+        ...data,
+        color_data: data.color_data || {},
+        event: data?.event?.id,
+        source_type: sourceTypes,
+      }
     : {
-      date: '',
-      time: '',
-      impact: '',
-      actual: '',
-      forecast: '',
-      previous: '',
-      revised: '',
-      description: '',
-      next_release: '',
-      ff_notice: '',
-      source_type: '',
-      currency_name: '',
-      currency_symbol: '',
-      currency_market: '',
-      time_model_name: '',
-      impact_crypto: '',
-      impact_energy: '',
-      impact_metal: '',
-      event: null,
-      color_data: {
-        actual_color: '',
-        revised_color: '',
-        actual_color_crypto: '',
-        actual_color_energy: '',
-      },
-    }
+        date: '',
+        time: '',
+        impact: '',
+        actual: '',
+        forecast: '',
+        previous: '',
+        revised: '',
+        description: '',
+        next_release: '',
+        ff_notice: '',
+        source_type: '',
+        currency_name: '',
+        currency_symbol: '',
+        currency_market: '',
+        time_model_name: '',
+        impact_crypto: '',
+        impact_energy: '',
+        impact_metal: '',
+        event: null,
+        color_data: {
+          actual_color: '',
+          actual_color_crypto: '',
+          actual_color_energy: '',
+          actual_color_metal: '',
+          revised_color: '',
+          revised_color_crypto: '',
+          revised_color_energy: '',
+          revised_color_metal: '',
+        },
+      }
 
   setValues(cleaned)
 }
