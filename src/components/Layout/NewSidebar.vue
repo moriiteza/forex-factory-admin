@@ -40,6 +40,11 @@
       <Icon class="me-2 fs-6" :icon="'material-symbols:calendar-month'" width="20"></Icon>
       <template #title> تقویم</template>
     </el-menu-item>
+
+    <el-menu-item :index="`/story`">
+      <Icon class="me-2 fs-6" :icon="'material-symbols:history-toggle-off'" width="20"></Icon>
+      <template #title> استوری</template>
+    </el-menu-item>
   </el-menu>
 </template>
 

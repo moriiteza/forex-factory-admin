@@ -36,10 +36,13 @@ import type { UploadFile, UploadInstance, UploadProps, UploadRawFile } from 'ele
 import { ElMessage, genFileId } from 'element-plus'
 import { useField } from 'vee-validate'
 import axiosInstance from '../../composables/axios'
+import { useAuthStore } from '@/stores/auth.ts'
 
 const upload = ref<UploadInstance>()
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
+const authStore = useAuthStore()
+
 const header = new Headers()
 const props: any = defineProps({
   name: String,
@@ -55,9 +58,6 @@ const props: any = defineProps({
   directory: String
 })
 const emits = defineEmits(['uploading', 'delete', 'uploadedFileName'])
-const uploadURL = ref(import.meta.env.VUE_APP_SERVER + `file/upload/${props.directory}`)
-
-header.append('Authorization', `Bearer ${localStorage.getItem('sitra-crm-access-token')}`)
 
 const handleRemove: UploadProps['onRemove'] = () => {
   ElMessage.success('فایل حذف شد')
@@ -78,11 +78,16 @@ const handleExceed: UploadProps['onExceed'] = (files) => {
 
 const fileChange: UploadProps['onChange'] = (files: any) => {
   emits('uploading', true)
+  const headers = {
+    Authorization: `Bearer ${authStore.token}`,
+    'Content-Type': 'multipart/form-data'
+  }
   const formData = new FormData()
   formData.append('file', files.raw)
-  axiosInstance.post(`file-upload/upload/${props.directory}`, formData).then((result: any) => {
-    setValue(result.data.data.fileName)
-    emits('uploadedFileName', `${props.directory}/${result.data.data.fileName}`)
+  formData.append('directory', props.directory)
+  axiosInstance.post(`storage/upload/`, formData, { headers }).then((result: any) => {
+    setValue(result.data.data.stored_name)
+    emits('uploadedFileName', `${result.data.data.stored_name}`)
   }).then(() => {
     ElMessage.success('فایل با موفیت بارگذاری شد')
   }).catch((error: any) => {

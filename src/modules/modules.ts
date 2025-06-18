@@ -4,6 +4,7 @@ import AuthLogin from '@/modules/Auth/Login/module'
 // App modules
 import Dashboard from '@/modules/Dashboard/module'
 import Calendar from '@/modules/Calendar/module'
+import Story from '@/modules/Story/module'
 
 
 export default {
@@ -15,5 +16,8 @@ export default {
   },
   Calendar: {
     Calendar: Calendar,
+  },
+  Story: {
+    Story: Story,
   },
 }
