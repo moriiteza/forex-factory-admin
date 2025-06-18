@@ -5,7 +5,7 @@ export interface TableColumnInterFace {
   key: string;
   width?: string;
   sortable: boolean;
-  type: 'text' | 'date' | 'tag' | 'custom' | 'operation' | 'component' | 'tagDate' | 'lastContact' | 'button' | 'image' | 'enum' | 'formatter' | 'boolean' | 'price',
+  type: 'text' | 'date' | 'originalDate' | 'tag' | 'custom' | 'operation' | 'component' | 'tagDate' | 'lastContact' | 'button' | 'image' | 'enum' | 'formatter' | 'boolean' | 'price',
   tagType?: 'success' | 'info' | 'warning' | 'danger' | 'primary' | '', // for "TAG" type
   operations?: TableOperation[],
   html?: Function // for "custom" type, it should be a function that get a val in return all row, for example: html: (val: any) => {},

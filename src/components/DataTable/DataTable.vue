@@ -69,6 +69,11 @@
         <div v-html="simpleDate(getValueByPath(scope.row, column.key))"></div>
       </template>
 
+      <!-- Handle type of date      -->
+      <template #default="scope" v-if="column.type === 'originalDate'">
+        <div v-html="moment(getValueByPath(scope.row, column.key)).format('YYYY-MM-DD')"></div>
+      </template>
+
       <!-- Handle type of date with tag      -->
       <template #default="scope" v-if="column.type === 'tagDate'">
         <el-tag v-if="column.tagMode" :type="column.tagType" class="py-4 px-4">
@@ -155,6 +160,7 @@ import FilterBuilder from '../../components/DataTable/FilterBuilder.vue'
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import { getValueByPath } from '@/utilites/nested.ts'
+import moment from 'moment'
 
 const props = defineProps([
   'rows',

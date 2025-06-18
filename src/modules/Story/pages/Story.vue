@@ -72,7 +72,7 @@ const tableColumns: TableColumnInterFace[] = [
   {
     title: 'تاریخ',
     key: 'created_at',
-    type: 'text',
+    type: 'originalDate',
     sortable: false,
   },
   {
