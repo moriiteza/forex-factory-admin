@@ -5,6 +5,7 @@ import AuthLogin from '@/modules/Auth/Login/module'
 import Dashboard from '@/modules/Dashboard/module'
 import Calendar from '@/modules/Calendar/module'
 import Story from '@/modules/Story/module'
+import Setting from '@/modules/Setting/module'
 
 
 export default {
@@ -17,7 +18,7 @@ export default {
   Calendar: {
     Calendar: Calendar,
   },
-  Story: {
-    Story: Story,
+  Setting: {
+    Setting: Setting,
   },
 }

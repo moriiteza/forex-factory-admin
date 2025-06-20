@@ -45,6 +45,18 @@
       <Icon class="me-2 fs-6" :icon="'material-symbols:history-toggle-off'" width="20"></Icon>
       <template #title> استوری</template>
     </el-menu-item>
+
+    <el-sub-menu :index='`setting`' class='ps-0'>
+      <template #title>
+        <Icon class='me-2 fs-6' :icon="'material-symbols:setting'" width="20"></Icon>
+        <span :class="{'d-none' : isCollapse}">تنظیمات</span>
+      </template>
+      <el-menu-item :index='`setting-adds`' class='ps-5 m-0'
+                    @click='router.push({path: `/setting/adds`})'
+                    :class="{'active': activeIndex === `setting-adds`}">
+        تبلیغات
+      </el-menu-item>
+    </el-sub-menu>
   </el-menu>
 </template>
 
