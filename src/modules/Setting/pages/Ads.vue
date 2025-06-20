@@ -42,8 +42,8 @@
             </div>
             <div class="col-md-12 mt-3">
               <SimpleUploadField
-                :label="'عکس دسکتاپ'"
-                :placeholder="'عکس دسکتاپ'"
+                :label="'عکس موبایل'"
+                :placeholder="'عکس موبایل'"
                 :size="'large'"
                 name="mobile_image"
                 :has-error="true"
