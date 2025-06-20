@@ -61,6 +61,9 @@
               <TextField name="link" label="لینک تبلیغ" placeholder="..." required />
             </div>
             <div class="col-md-12 mt-3">
+              <TextField name="alt" label="Image Alt" placeholder="..." required />
+            </div>
+            <div class="col-md-12 mt-3">
               <el-button
                 size="large"
                 @click="submit"
@@ -99,6 +102,7 @@ const { values, setFieldValue } = useForm({
     desktop_image: yup.string(),
     mobile_image: yup.string(),
     link: yup.string(),
+    alt: yup.string(),
   }),
 })
 
