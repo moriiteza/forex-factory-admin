@@ -21,10 +21,6 @@
     <el-form @submit.prevent="submitForm" :disabled="loading">
       <div class="row m-0">
         <div class="col-md-12 my-1">
-          <TextField name="title" label="عنوان" placeholder="..." required />
-        </div>
-
-        <div class="col-md-12 my-1">
           <SimpleUploadField
             :label="'عکس'"
             :placeholder="'عکس'"
@@ -41,7 +37,19 @@
         </div>
 
         <div class="col-md-12 my-1">
+          <TextField name="title" label="عنوان" placeholder="..." required />
+        </div>
+
+        <div class="col-md-12 my-1">
           <TextField name="description" label="توضیحات" type="textarea" :rows="4" />
+        </div>
+
+        <div class="col-md-12 my-1">
+          <StoryCategorySelectField name="category" label="دسته بندی"/>
+        </div>
+
+        <div class="col-md-12 my-1">
+          <DatePickerField name="expire_at" label="تاریخ انقضا" result-formatter="YYYY-MM-DD" />
         </div>
 
         <div class="col-md-12 my-1">
@@ -73,6 +81,8 @@ import TextField from '@/components/Form/TextField.vue'
 import { create, update } from '@/modules/Story/api/story.ts'
 import SimpleUploadField from '@/components/Form/SimpleUploadField.vue'
 import CheckboxField from '@/components/Form/CheckboxField.vue'
+import StoryCategorySelectField from '@/components/Form/StoryCategorySelectField.vue'
+import DatePickerField from '@/components/Form/DatePickerField.vue'
 
 const props = defineProps({
   visible: Boolean,
@@ -89,7 +99,9 @@ const schema = yup.object({
   title: yup.string().required('عنوان ضروری است'),
   image: yup.string().url('فرمت آدرس تصویر صحیح نیست').nullable(),
   description: yup.string().nullable(),
+  expire_at: yup.string().nullable(),
   active: yup.boolean().default(true),
+  category: yup.number().required(),
 })
 
 const { handleSubmit, setValues, values, setFieldValue } = useForm({
@@ -99,6 +111,8 @@ const { handleSubmit, setValues, values, setFieldValue } = useForm({
     title: '',
     image: '',
     description: '',
+    category: '',
+    expire_at: ''
   },
 })
 
@@ -109,6 +123,8 @@ const openForm = () => {
     image: data.image || '',
     description: data.description || '',
     active: data.active ?? true,
+    category: data.category ?? '',
+    expire_at: data.expire_at ?? '',
   })
 }
 

@@ -70,13 +70,25 @@ const tableColumns: TableColumnInterFace[] = [
     sortable: false,
   },
   {
-    title: 'تاریخ',
+    title: 'تاریخ ثبت',
     key: 'created_at',
     type: 'originalDate',
     sortable: false,
   },
   {
-    title: 'وضعیت',
+    title: 'تاریخ انقضا',
+    key: 'expire_at',
+    type: 'originalDate',
+    sortable: false,
+  },
+  {
+    title: 'دسته بندی',
+    key: 'category_name',
+    type: 'text',
+    sortable: false,
+  },
+  {
+    title: 'فعال',
     key: 'active',
     type: 'boolean',
     sortable: false,
@@ -134,6 +146,12 @@ const tableFilters: FilterBuilderInterface[] = [
     name: 'title',
     type: 'textField',
     title: 'عنوان',
+    icon: true,
+  },
+  {
+    name: 'category',
+    type: 'storyCategorySelect',
+    title: 'دسته بندی',
     icon: true,
   },
 ]

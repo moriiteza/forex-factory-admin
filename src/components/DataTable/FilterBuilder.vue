@@ -9,6 +9,7 @@
       <CheckboxField :name="item.name" :placeholder="item.title" :label="item.label" , v-if="item.type === 'checkbox'" :size="'large'"/>
       <SourceTypeSelectField :multiple="item.multiple" :name="item.name" :placeholder="item.title" :label="item.label" , v-if="item.type === 'sourceType'" :size="'large'"/>
       <EventSelectField :name="item.name" :placeholder="item.title" :label="item.label" , v-if="item.type === 'eventSelect'" :size="'large'"/>
+      <StoryCategorySelectField :name="item.name" :placeholder="item.title" :label="item.label" , v-if="item.type === 'storyCategorySelect'" :size="'large'"/>
     </div>
   </div>
 </template>
@@ -27,6 +28,7 @@ import { useRoute } from 'vue-router'
 import PersianDatePickerField from '@/components/Form/PersianDatePickerField.vue'
 import SourceTypeSelectField from '@/components/Form/SourceTypeSelectField.vue'
 import EventSelectField from '@/components/Form/EventSelectField.vue'
+import StoryCategorySelectField from '@/components/Form/StoryCategorySelectField.vue'
 
 const props = defineProps(['items', 'defaults'])
 const emits = defineEmits(['filter'])

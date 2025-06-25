@@ -12,6 +12,7 @@ export interface FilterBuilderInterface {
     | 'persianDate'
     | 'sourceType'
     | 'eventSelect'
+    | 'storyCategorySelect'
   options?: FilterBuilderOptions[] // for type "SELECT"
   filterAble?: Boolean // for type "SELECT"
   remoteFilterAble?: Boolean // for type "SELECT"
