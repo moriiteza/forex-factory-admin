@@ -17,7 +17,7 @@
       :class="{ 'd-none': isCollapse }"
     >
       <div class="d-block">
-        <img src="@/assets/images/LOGO.png" width="60px" height="60px" alt="logo" />
+        <img src="@/assets/images/LOGO.png" width="80px" height="80px" alt="logo" />
       </div>
     </div>
 
@@ -41,14 +41,26 @@
       <template #title> تقویم</template>
     </el-menu-item>
 
-    <el-menu-item :index="`/story`">
-      <Icon class="me-2 fs-6" :icon="'material-symbols:history-toggle-off'" width="20"></Icon>
-      <template #title> استوری</template>
-    </el-menu-item>
+    <el-sub-menu :index='`story`' class='ps-0'>
+      <template #title>
+        <Icon class='me-2 fs-6' :icon="'material-symbols:history-toggle-off'" width="20"></Icon>
+        <span :class="{'d-none' : isCollapse}">استوری</span>
+      </template>
+      <el-menu-item :index='`story-categories`' class='ps-5 m-0'
+                    @click='router.push({path: `/story/categories`})'
+                    :class="{'active': activeIndex === `story-categories`}">
+        دسته بندی
+      </el-menu-item>
+      <el-menu-item :index='`story-stories`' class='ps-5 m-0'
+                    @click='router.push({path: `/story/stories`})'
+                    :class="{'active': activeIndex === `story-stories`}">
+        استوری
+      </el-menu-item>
+    </el-sub-menu>
 
     <el-sub-menu :index='`setting`' class='ps-0'>
       <template #title>
-        <Icon class='me-2 fs-6' :icon="'material-symbols:setting'" width="20"></Icon>
+        <Icon class='me-2 fs-6' :icon="'material-symbols:settings-outline'" width="20"></Icon>
         <span :class="{'d-none' : isCollapse}">تنظیمات</span>
       </template>
       <el-menu-item :index='`setting-adds`' class='ps-5 m-0'
