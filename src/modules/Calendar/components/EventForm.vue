@@ -30,6 +30,10 @@
         <div class="col-md-6 my-1" v-for="field in textFields" :key="field.name">
           <TextField :name="field.name" :label="field.label" />
         </div>
+
+        <div class="col-md-12 my-1">
+          <CheckboxField :name="'is_rate'" :label="'نمایش به عنوان نرخ بهره'" />
+        </div>
       </div>
 
       <div class="row justify-content-center mt-4">
@@ -53,7 +57,8 @@ import { type PropType, ref, toRefs } from 'vue'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 import TextField from '@/components/Form/TextField.vue'
-import { update, create } from '@/modules/Calendar/api/calendar.ts'
+import { update, create } from '@/modules/Calendar/api/event.ts'
+import CheckboxField from '@/components/Form/CheckboxField.vue'
 
 const props = defineProps({
   visible: Boolean,
@@ -110,6 +115,7 @@ const openForm = () => {
     intro_link_text: data.intro_link_text || '',
     source_name: data.source_name || '',
     source_link: data.source_link || '',
+    is_rate: data.is_rate || false
   }
 
   setValues(cleaned)
@@ -138,6 +144,7 @@ const schema = yup.object({
   intro_link_text: yup.string().nullable(),
   source_name: yup.string().nullable(),
   source_link: yup.string().nullable(),
+  is_rate: yup.boolean().nullable(),
 })
 
 const { handleSubmit, setValues } = useForm({

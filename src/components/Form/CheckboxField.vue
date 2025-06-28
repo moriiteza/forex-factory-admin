@@ -2,7 +2,7 @@
 
   <el-checkbox
       border
-      class='w-100 my-2'
+      class='w-100'
       size='large'
       :label='label'
       :id='name'

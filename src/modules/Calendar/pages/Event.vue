@@ -77,6 +77,12 @@ const tableColumns: TableColumnInterFace[] = [
     sortable: false,
   },
   {
+    title: 'نرخ بهره',
+    key: 'is_rate',
+    type: 'boolean',
+    sortable: false,
+  },
+  {
     type: 'operation',
     key: '',
     sortable: false,
@@ -115,6 +121,12 @@ const tableFilters: FilterBuilderInterface[] = [
     name: 'event_name_fa',
     type: 'textField',
     title: 'نام فارسی',
+  },
+  {
+    name: 'is_rate',
+    type: 'checkBox',
+    title: 'نرخ بهره',
+    label: 'نرخ بهره',
   },
 ]
 

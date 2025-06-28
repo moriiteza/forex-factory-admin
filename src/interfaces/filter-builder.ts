@@ -13,6 +13,7 @@ export interface FilterBuilderInterface {
     | 'sourceType'
     | 'eventSelect'
     | 'storyCategorySelect'
+    | 'checkBox'
   options?: FilterBuilderOptions[] // for type "SELECT"
   filterAble?: Boolean // for type "SELECT"
   remoteFilterAble?: Boolean // for type "SELECT"

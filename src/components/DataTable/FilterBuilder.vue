@@ -5,11 +5,12 @@
       <PersianDatePickerField :name='item.name' :placeholder='item.title' :label='item.label' v-if="item.type === 'persianDate'" :size="'large'" :result-formatter='item.dateFormat'/>
       <DatePickerField :name='item.name' :placeholder='item.title' :label='item.label' v-if="item.type === 'date'" :size="'large'"/>
       <Select :name='item.name' :placeholder='item.title' :label='item.label' :filterable='item.filterAble' :remote-filterable='item.remoteFilterAble' :items='item.options' v-if="item.type === 'select'" :multiple='item.multiple' :size="'large'"/>
-      <EnumSelectField :name='item.name' :placeholder='item.title' , :label='item.label' v-if="item.type ==='enumSelect'" :enum='item.enum' :size="'large'"/>
-      <CheckboxField :name="item.name" :placeholder="item.title" :label="item.label" , v-if="item.type === 'checkbox'" :size="'large'"/>
-      <SourceTypeSelectField :multiple="item.multiple" :name="item.name" :placeholder="item.title" :label="item.label" , v-if="item.type === 'sourceType'" :size="'large'"/>
-      <EventSelectField :name="item.name" :placeholder="item.title" :label="item.label" , v-if="item.type === 'eventSelect'" :size="'large'"/>
-      <StoryCategorySelectField :name="item.name" :placeholder="item.title" :label="item.label" , v-if="item.type === 'storyCategorySelect'" :size="'large'"/>
+      <EnumSelectField :name='item.name' :placeholder='item.title' :label='item.label' v-if="item.type ==='enumSelect'" :enum='item.enum' :size="'large'"/>
+      <CheckboxField :name="item.name" :placeholder="item.title" :label="item.label" v-if="item.type === 'checkbox'" :size="'large'"/>
+      <SourceTypeSelectField :multiple="item.multiple" :name="item.name" :placeholder="item.title" :label="item.label" v-if="item.type === 'sourceType'" :size="'large'"/>
+      <EventSelectField :name="item.name" :placeholder="item.title" :label="item.label" v-if="item.type === 'eventSelect'" :size="'large'"/>
+      <StoryCategorySelectField :name="item.name" :placeholder="item.title" :label="item.label" v-if="item.type === 'storyCategorySelect'" :size="'large'"/>
+      <CheckboxField :name="item.name" :placeholder="item.title" :label="item.label" v-if="item.type === 'checkBox'" :size="'large'"/>
     </div>
   </div>
 </template>
