@@ -31,8 +31,12 @@
           <TextField :name="field.name" :label="field.label" />
         </div>
 
-        <div class="col-md-12 my-1">
+        <div class="col-md-6 my-4">
           <CheckboxField :name="'is_rate'" :label="'نمایش به عنوان نرخ بهره'" />
+        </div>
+
+        <div class="col-md-6 my-3">
+          <TextField :name="'rate_name'" :label="'عنوان نرخ بهره'" />
         </div>
       </div>
 
@@ -115,7 +119,8 @@ const openForm = () => {
     intro_link_text: data.intro_link_text || '',
     source_name: data.source_name || '',
     source_link: data.source_link || '',
-    is_rate: data.is_rate || false
+    is_rate: data.is_rate || false,
+    rate_name: data.rate_name || ''
   }
 
   setValues(cleaned)
@@ -145,6 +150,7 @@ const schema = yup.object({
   source_name: yup.string().nullable(),
   source_link: yup.string().nullable(),
   is_rate: yup.boolean().nullable(),
+  rate_name: yup.string().nullable(),
 })
 
 const { handleSubmit, setValues } = useForm({
