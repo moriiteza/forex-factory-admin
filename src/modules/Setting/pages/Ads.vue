@@ -97,7 +97,7 @@ const uploadLoading = ref(false)
 
 const data = ref({})
 
-const { values, setFieldValue } = useForm({
+const { values, setFieldValue, setValues } = useForm({
   validationSchema: yup.object().shape({
     desktop_image: yup.string(),
     mobile_image: yup.string(),
@@ -116,6 +116,7 @@ const getAds = () => {
     .then((res: any) => {
       loading.value = false
       data.value = res.data.data
+      setValues(res.data.data.value)
     })
     .finally(() => (loading.value = false))
 }
