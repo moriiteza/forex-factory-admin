@@ -5,7 +5,9 @@
         <el-card>
           <div class="p-0 d-flex">
             <h3>دسته بندی های استوری</h3>
-            <el-button class="ms-auto" type="success" round plain @click="formVisible = true"> افزودن</el-button>
+            <el-button class="ms-auto" type="success" round plain @click="formVisible = true">
+              افزودن
+            </el-button>
           </div>
         </el-card>
       </div>
@@ -35,11 +37,12 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { fetch } from '@/modules/Story/api/story-category.ts'
+import { fetch, remove } from '@/modules/Story/api/story-category.ts'
 import type { FilterBuilderInterface } from '@/interfaces/filter-builder'
 import type { TableColumnInterFace } from '@/interfaces/table'
 import DataTable from '@/components/DataTable/DataTable.vue'
 import StoryCategoryForm from '@/modules/Story/components/StoryCategoryForm.vue'
+import { ElMessageBox } from 'element-plus'
 
 const formVisible = ref(false)
 const formData = ref<{} | null>(null)
@@ -91,7 +94,17 @@ const tableColumns: TableColumnInterFace[] = [
         tooltip: 'حذف',
         iconColor: 'danger',
         onClick: (row?: any) => {
-          // router.push({ path: `/posts/requests`, query: { postId: row.row.row.id } })
+          ElMessageBox.confirm(
+            'آیا از حذف این دسته بندی اطمینان دارید؟',
+            `حذف ${row.row.row.title}`,
+            {
+              confirmButtonText: 'بله حذف کن',
+              cancelButtonText: 'منصرف شدم',
+              type: 'error',
+            },
+          ).then(() => {
+            remove(row.row.row.id).then(() => getItems())
+          })
         },
       },
     ],
@@ -118,9 +131,9 @@ const updateTable = (event: boolean) => {
 }
 
 const closeForm = () => {
-  formVisible.value = false;
+  formVisible.value = false
   formData.value = null
-  getItems(filters);
+  getItems(filters)
 }
 
 onMounted(() => updateTable(true))

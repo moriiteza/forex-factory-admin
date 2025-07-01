@@ -38,8 +38,9 @@ import { ref } from 'vue'
 import DataTable from '@/components/DataTable/DataTable.vue'
 import type { TableColumnInterFace } from '@/interfaces/table'
 import type { FilterBuilderInterface } from '@/interfaces/filter-builder'
-import { fetch } from '@/modules/Story/api/story.ts'
+import { fetch, remove } from '@/modules/Story/api/story.ts'
 import StoryForm from '@/modules/Story/components/StoryForm.vue'
+import { ElMessageBox } from 'element-plus'
 
 const formVisible = ref(false)
 const formData = ref<{} | null>(null)
@@ -115,7 +116,17 @@ const tableColumns: TableColumnInterFace[] = [
         tooltip: 'حذف',
         iconColor: 'danger',
         onClick: (row?: any) => {
-          // router.push({ path: `/posts/requests`, query: { postId: row.row.row.id } })
+          ElMessageBox.confirm(
+            'آیا از حذف این استوری اطمینان دارید؟',
+            `حذف ${row.row.row.title}`,
+            {
+              confirmButtonText: 'بله حذف کن',
+              cancelButtonText: 'منصرف شدم',
+              type: 'error',
+            },
+          ).then(() => {
+            remove(row.row.row.id).then(() => getItems())
+          })
         },
       },
     ],
