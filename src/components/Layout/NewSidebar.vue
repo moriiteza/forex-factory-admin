@@ -41,6 +41,11 @@
       <template #title> تقویم</template>
     </el-menu-item>
 
+    <el-menu-item :index="`/sessions`">
+      <Icon class="me-2 fs-6" :icon="'material-symbols:meeting-room-outline'" width="40"></Icon>
+      <template #title> جلسات معاملاتی</template>
+    </el-menu-item>
+
     <el-sub-menu :index='`story`' class='ps-0'>
       <template #title>
         <Icon class='me-2 fs-6' :icon="'material-symbols:history-toggle-off'" width="20"></Icon>
