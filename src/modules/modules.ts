@@ -22,6 +22,9 @@ export default {
   Setting: {
     Setting: Setting,
   },
+  Story: {
+    Story: Story,
+  },
   Sessions: {
     Sessions: Sessions,
   },
