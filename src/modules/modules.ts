@@ -7,14 +7,15 @@ import Calendar from '@/modules/Calendar/module'
 import Setting from '@/modules/Setting/module'
 import Story from '@/modules/Story/module'
 import Sessions from '@/modules/Sessions/module'
+import Users from '@/modules/Users/module'
 
 
 export default {
   Auth: {
     Login: AuthLogin,
   },
-  Users: {
-    Users: Dashboard,
+  Dashboard: {
+    Dashboard: Dashboard,
   },
   Calendar: {
     Calendar: Calendar,
@@ -27,5 +28,8 @@ export default {
   },
   Sessions: {
     Sessions: Sessions,
+  },
+  Users: {
+    Users: Users,
   },
 }
