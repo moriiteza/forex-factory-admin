@@ -289,23 +289,24 @@ const { handleSubmit, resetForm, setValues } = useForm({
 const submitForm = handleSubmit(async (values) => {
   try {
     loading.value = true
-    const payload = {
-      ...values,
-      color_data: {
-        actual: {
-          default: values.color_data.actual_color || null,
-          crypto: values.color_data.actual_color_crypto || null,
-          energy: values.color_data.actual_color_energy || null,
-          metal: values.color_data.actual_color_metal || null,
-        },
-        revised: {
-          default: values.color_data.revised_color || null,
-          crypto: values.color_data.revised_color_crypto || null,
-          energy: values.color_data.revised_color_energy || null,
-          metal: values.color_data.revised_color_metal || null,
-        },
+    const payload: any = { ...values }
+
+    payload.color_data = {
+      actual: {
+        default: values.color_data.actual_color || null,
+        crypto: values.color_data.actual_color_crypto || null,
+        energy: values.color_data.actual_color_energy || null,
+        metal: values.color_data.actual_color_metal || null,
+      },
+      revised: {
+        default: values.color_data.revised_color || null,
+        crypto: values.color_data.revised_color_crypto || null,
+        energy: values.color_data.revised_color_energy || null,
+        metal: values.color_data.revised_color_metal || null,
       },
     }
+    payload.time_model_name = values.time_model_name || null
+
     if (editValue?.value?.id) {
       await update(editValue?.value?.id, payload)
     } else {
