@@ -5,7 +5,9 @@
         <el-card>
           <div class="p-0 d-flex">
             <h3>تقویم</h3>
-            <el-button class="ms-auto" type="success" round plain @click="formVisible = true"> افزودن</el-button>
+            <el-button class="ms-auto" type="success" round plain @click="formVisible = true">
+              افزودن
+            </el-button>
           </div>
         </el-card>
       </div>
@@ -38,9 +40,10 @@ import { ref } from 'vue'
 import DataTable from '@/components/DataTable/DataTable.vue'
 import type { TableColumnInterFace } from '@/interfaces/table'
 import type { FilterBuilderInterface } from '@/interfaces/filter-builder'
-import { fetch } from '@/modules/Calendar/api/calendar.ts'
+import { fetch, remove } from '@/modules/Calendar/api/calendar.ts'
 import enums from '@/enums/enums.ts'
 import CalendarForm from '@/modules/Calendar/components/CalendarForm.vue'
+import { ElMessageBox } from 'element-plus'
 
 const formVisible = ref(false)
 const formData = ref<{} | null>(null)
@@ -136,7 +139,13 @@ const tableColumns: TableColumnInterFace[] = [
         tooltip: 'حذف',
         iconColor: 'danger',
         onClick: (row?: any) => {
-          // router.push({ path: `/posts/requests`, query: { postId: row.row.row.id } })
+          ElMessageBox.confirm('آیا از حذف این ایونت اطمینان دارید؟', `حذف ${row.row.row.date}`, {
+            confirmButtonText: 'بله حذف کن',
+            cancelButtonText: 'منصرف شدم',
+            type: 'error',
+          }).then(() => {
+            remove(row.row.row.id).then(() => getItems())
+          })
         },
       },
     ],
@@ -212,8 +221,8 @@ const updateTable = (event: boolean) => {
 }
 
 const closeForm = () => {
-  formVisible.value = false;
+  formVisible.value = false
   formData.value = null
-  getItems(filters);
+  getItems(filters)
 }
 </script>

@@ -23,21 +23,21 @@
     </div>
 
     <el-select
-      :id="name"
-      :filterable="filterable"
-      :remote="remoteFilterable"
-      :name="name"
-      :size="size"
-      :placeholder="placeholder"
-      :model-value="inputValue"
-      @change="onSelect"
-      @blur="handleBlur"
-      :disabled="disable"
+      :id='name'
+      :remote='remoteFilterable'
+      :filterable='filterable'
+      :name='name'
+      :size='size'
+      :placeholder='placeholder'
+      :model-value='inputValue'
+      @change='handleChange'
+      @blur='handleBlur'
+      :disabled='disable'
       clearable
       style="text-align: right"
     >
       <el-option
-        v-for="(item, index) in items"
+        v-for="(item, index) in currencyItems"
         :key="item.symbol"
         :label="`${item.name} (${item.symbol})`"
         :value="item.symbol"
@@ -75,7 +75,7 @@ const props = defineProps({
   disable: Boolean
 })
 
-const items = [
+const currencyItems = [
   { name: 'فلزات پایه', symbol: 'BML', market: 'metal' },
   { name: 'فلزات گران بها', symbol: 'XAU', market: 'metal' },
   { name: 'حاملان انرژی', symbol: 'OIL', market: 'energy' },
@@ -95,17 +95,17 @@ const name = toRef(props, 'name')
 const {
   value: inputValue,
   errorMessage,
-  handleBlur
-} = useField(name, undefined, { initialValue: '' })
+  handleBlur,
+  handleChange,
+  meta: { touched }
+} = useField(name, undefined, {
+  initialValue: props.value
+})
 
-const { setFieldValue } = useForm()
-
-const onSelect = (selectedSymbol: string) => {
-  const selected = props.items.find((item: any) => item.symbol === selectedSymbol)
-  if (selected) {
-    setFieldValue('currency_name', selected.name)
-    setFieldValue('currency_symbol', selected.symbol)
-    setFieldValue('currency_market', selected.market)
-  }
-}
+// const onSelect = (selectedSymbol: string) => {
+//   const selected = currencyItems.find((item: any) => item.symbol === selectedSymbol)
+//   if (selected) {
+//     inputValue.value = selected.symbol
+//   }
+// }
 </script>

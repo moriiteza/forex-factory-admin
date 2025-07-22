@@ -47,7 +47,7 @@
         </div>
 
         <div class="col-md-6 my-1">
-          <CurrencySelectField placeholder="انتخاب کنید" name="currency_name" label="نام ارز" />
+          <CurrencySelectField placeholder="انتخاب کنید" name="currency_symbol" label="نام ارز" />
         </div>
 
         <div class="col-md-12 my-1">
@@ -173,7 +173,7 @@
 </template>
 
 <script setup lang="ts">
-import { type PropType, ref, toRefs } from 'vue'
+import { type PropType, ref, toRefs, watch } from 'vue'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 import TextField from '@/components/Form/TextField.vue'
@@ -250,6 +250,22 @@ const closeForm = () => {
   emits('close', false)
 }
 
+const currencyItems = [
+  { name: 'فلزات پایه', symbol: 'BML', market: 'metal' },
+  { name: 'فلزات گران بها', symbol: 'XAU', market: 'metal' },
+  { name: 'حاملان انرژی', symbol: 'OIL', market: 'energy' },
+  { name: 'رمز ارزها', symbol: 'BTC', market: 'crypto' },
+  { name: 'ریال ایران', symbol: 'IRR', market: 'forex' },
+  { name: 'همه نمادها', symbol: 'All', market: 'forex' },
+  { name: 'یوآن چین', symbol: 'CNY', market: 'forex' },
+  { name: 'فرانک سوئیس', symbol: 'CHF', market: 'forex' },
+  { name: 'پوند انگلیس', symbol: 'GBP', market: 'forex' },
+  { name: 'دلار نیوزلند', symbol: 'NZD', market: 'forex' },
+  { name: 'دلار استرالیا', symbol: 'AUD', market: 'forex' },
+  { name: 'ین ژاپن', symbol: 'JPY', market: 'forex' },
+  { name: 'دلار آمریکا', symbol: 'USD', market: 'forex' },
+]
+
 const schema = yup.object({
   event: yup.number().required('ضروری است'),
   date: yup.string().required(),
@@ -282,9 +298,15 @@ const schema = yup.object({
   }),
 })
 
-const { handleSubmit, resetForm, setValues } = useForm({
+const { handleSubmit, setValues, values, setFieldValue } = useForm({
   validationSchema: schema,
 })
+
+watch(() => values.currency_symbol, () => {
+  const selected: any = currencyItems.find((item: any) => item.symbol === values.currency_symbol)
+  setFieldValue('currency_name', selected?.name)
+  setFieldValue('currency_market', selected?.market)
+}, { deep: true,  immediate: true})
 
 const submitForm = handleSubmit(async (values) => {
   try {
@@ -306,6 +328,7 @@ const submitForm = handleSubmit(async (values) => {
       },
     }
     payload.time_model_name = values.time_model_name || null
+    payload.next_release = values.next_release || null
 
     if (editValue?.value?.id) {
       await update(editValue?.value?.id, payload)
