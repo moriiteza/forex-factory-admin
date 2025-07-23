@@ -87,6 +87,8 @@ const currencyItems = [
   { name: 'پوند انگلیس', symbol: 'GBP', market: 'forex' },
   { name: 'دلار نیوزلند', symbol: 'NZD', market: 'forex' },
   { name: 'دلار استرالیا', symbol: 'AUD', market: 'forex' },
+  { name: 'دلار کانادا', symbol: 'CAD', market: 'forex' },
+  { name: 'یورو', symbol: 'EUR', market: 'forex' },
   { name: 'ین ژاپن', symbol: 'JPY', market: 'forex' },
   { name: 'دلار آمریکا', symbol: 'USD', market: 'forex' },
 ]
