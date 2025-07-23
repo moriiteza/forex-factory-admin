@@ -202,47 +202,58 @@ const loading = ref(false)
 
 const openForm = () => {
   const data = editValue?.value || null
-  const sourceTypes = editValue?.value?.source_type.map((el: any) => el.id) || null
+  const sourceTypes = data?.source_type?.map((el: any) => el.id) || null
+
+  const colorData = data?.color_data || {}
 
   const cleaned = data
     ? {
-        ...data,
-        color_data: data.color_data || {},
-        event: data?.event?.id,
-        source_type: sourceTypes,
-      }
+      ...data,
+      color_data: {
+        actual_color: colorData.actual?.default || '',
+        actual_color_crypto: colorData.actual?.crypto || '',
+        actual_color_energy: colorData.actual?.energy || '',
+        actual_color_metal: colorData.actual?.metal || '',
+        revised_color: colorData.revised?.default || '',
+        revised_color_crypto: colorData.revised?.crypto || '',
+        revised_color_energy: colorData.revised?.energy || '',
+        revised_color_metal: colorData.revised?.metal || '',
+      },
+      event: data?.event?.id,
+      source_type: sourceTypes,
+    }
     : {
-        date: '',
-        time: '',
-        impact: '',
-        actual: '',
-        forecast: '',
-        previous: '',
-        revised: '',
-        description: '',
-        next_release: '',
-        ff_notice: '',
-        source_type: '',
-        currency_name: '',
-        currency_symbol: '',
-        currency_market: '',
-        time_model_name: '',
-        impact_crypto: '',
-        impact_energy: '',
-        impact_metal: '',
-        event: null,
-        color_data: {
-          actual_color: '',
-          actual_color_crypto: '',
-          actual_color_energy: '',
-          actual_color_metal: '',
-          revised_color: '',
-          revised_color_crypto: '',
-          revised_color_energy: '',
-          revised_color_metal: '',
-        },
-      }
-
+      date: '',
+      time: '',
+      impact: '',
+      actual: '',
+      forecast: '',
+      previous: '',
+      revised: '',
+      description: '',
+      next_release: '',
+      ff_notice: '',
+      source_type: '',
+      currency_name: '',
+      currency_symbol: '',
+      currency_market: '',
+      time_model_name: '',
+      impact_crypto: '',
+      impact_energy: '',
+      impact_metal: '',
+      event: null,
+      color_data: {
+        actual_color: '',
+        actual_color_crypto: '',
+        actual_color_energy: '',
+        actual_color_metal: '',
+        revised_color: '',
+        revised_color_crypto: '',
+        revised_color_energy: '',
+        revised_color_metal: '',
+      },
+    }
+  console.log(cleaned)
   setValues(cleaned)
 }
 
@@ -304,11 +315,15 @@ const { handleSubmit, setValues, values, setFieldValue } = useForm({
   validationSchema: schema,
 })
 
-watch(() => values.currency_symbol, () => {
-  const selected: any = currencyItems.find((item: any) => item.symbol === values.currency_symbol)
-  setFieldValue('currency_name', selected?.name)
-  setFieldValue('currency_market', selected?.market)
-}, { deep: true,  immediate: true})
+watch(
+  () => values.currency_symbol,
+  () => {
+    const selected: any = currencyItems.find((item: any) => item.symbol === values.currency_symbol)
+    setFieldValue('currency_name', selected?.name)
+    setFieldValue('currency_market', selected?.market)
+  },
+  { deep: true, immediate: true },
+)
 
 const submitForm = handleSubmit(async (values) => {
   try {
