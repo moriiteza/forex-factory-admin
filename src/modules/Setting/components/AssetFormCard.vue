@@ -1,6 +1,11 @@
 <template>
   <el-card class="mt-4" v-loading="loading">
-    <template #header>{{ initialAsset.name }}</template>
+    <template #header>
+      <div class="d-flex w-100 justify-between">
+        <span>{{ initialAsset.name }}</span>
+        <span class="ms-auto">{{ formatters.toJalali(initialAsset.timestamp) }}</span>
+      </div>
+    </template>
     <div class="row">
       <div class="col-md-6 mt-3">
         <TextField
@@ -57,6 +62,7 @@ import * as yup from 'yup'
 import TextField from '@/components/Form/TextField.vue'
 import { create } from '@/modules/Setting/api/rate-monitor.ts'
 import { ElMessage } from 'element-plus'
+import formatters from '@/libarary/formatters.ts'
 
 const props = defineProps<{
   initialAsset: {
@@ -64,6 +70,7 @@ const props = defineProps<{
     symbol: string
     price: string
     second_price: string | null
+    timestamp: string
   }
 }>()
 
@@ -103,7 +110,7 @@ watch(
     if (newVal.second_price !== null) {
       setFieldValue('second_price', newVal.second_price)
     }
-    console.log(values)
+    console.log(newVal)
   },
   { immediate: true, deep: true }
 )

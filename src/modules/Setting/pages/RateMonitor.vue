@@ -22,15 +22,16 @@ interface Asset {
   symbol: string
   price: string | null
   second_price: string | null
+  timestamp: string | null
 }
 
 const assetList = ref<Asset[]>([
-  { name: 'بیت کوین', symbol: 'bitcoin', price: '', second_price: '' },
-  { name: 'اتریوم', symbol: 'ethereum', price: '', second_price: '' },
-  { name: 'تتر', symbol: 'tether', price: '', second_price: '' },
-  { name: 'انس جهانی طلا', symbol: 'gold-ons', price: '', second_price: '' },
-  { name: 'طلای ۱۸ عیار', symbol: '18ayar', price: null, second_price: null },
-  { name: 'دلار', symbol: 'usd', price: '', second_price: null },
+  { name: 'بیت کوین', symbol: 'bitcoin', price: '', second_price: '', timestamp: '' },
+  { name: 'اتریوم', symbol: 'ethereum', price: '', second_price: '', timestamp: '' },
+  { name: 'تتر', symbol: 'tether', price: '', second_price: '', timestamp: '' },
+  { name: 'انس جهانی طلا', symbol: 'gold-ons', price: '', second_price: '', timestamp: '' },
+  { name: 'طلای ۱۸ عیار', symbol: '18ayar', price: null, second_price: null, timestamp: '' },
+  { name: 'دلار', symbol: 'usd', price: '', second_price: null, timestamp: '' },
 ])
 
 const getData = async () => {
@@ -47,6 +48,7 @@ const getData = async () => {
     if (match) {
       asset.price = match.price ?? ''
       asset.second_price = match.second_price ?? null
+      asset.timestamp = match.timestamp
     }
   })
 }
