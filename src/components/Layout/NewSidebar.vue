@@ -73,6 +73,11 @@
                     :class="{'active': activeIndex === `setting-adds`}">
         تبلیغات
       </el-menu-item>
+      <el-menu-item :index='`setting-rate-monitor`' class='ps-5 m-0'
+                    @click='router.push({path: `/setting/rate-monitor`})'
+                    :class="{'active': activeIndex === `setting-rate-monitor`}">
+        قیمت ها
+      </el-menu-item>
     </el-sub-menu>
   </el-menu>
 </template>

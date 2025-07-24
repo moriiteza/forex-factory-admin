@@ -10,4 +10,13 @@ export default [
       requiresAuth: true,
     },
   },
+  {
+    path: '/setting/rate-monitor',
+    name: 'setting-rate-monitor',
+    component: () => import('./pages/RateMonitor.vue'),
+    meta: {
+      layout: AppLayout,
+      requiresAuth: true,
+    },
+  },
 ]
