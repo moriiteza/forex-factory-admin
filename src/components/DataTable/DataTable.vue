@@ -60,7 +60,7 @@
       <!-- Handle type of image      -->
       <template #default="scope" v-if="column.type === 'image'">
         <el-tooltip :content="getValueByPath(scope.row, column.key)">
-          <img :src="getValueByPath(scope.row, column.key)" style="width: 50px; height: 50px; border-radius: 50%" />
+          <img :src="`${baseurl}/storage/download/?file_name=${getValueByPath(scope.row, column.key)}`" style="width: 50px; height: 50px; border-radius: 50%" />
         </el-tooltip>
       </template>
 
@@ -161,6 +161,7 @@ import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import { getValueByPath } from '@/utilites/nested.ts'
 import moment from 'moment'
+import { baseurl } from '@/composables/axios.ts'
 
 const props = defineProps([
   'rows',

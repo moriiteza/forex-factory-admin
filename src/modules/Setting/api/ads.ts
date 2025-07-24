@@ -9,4 +9,9 @@ const create = async (data: any) => {
   return await axiosInstance.post('setting/admin/ads/', data)
 }
 
-export { get, create }
+
+const removeFile = async (imageName: string) => {
+  return await axiosInstance.delete(`storage/delete/?file_name=${imageName}`)
+}
+
+export { get, create, removeFile }
