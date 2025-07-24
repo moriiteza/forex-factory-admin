@@ -218,14 +218,19 @@ const submit = () => {
       }
     })
   } else {
+    const lastId = data.value.length > 0
+      ? Math.max(...data.value.map(item => item.id))
+      : 0
+
     const item: AdsSetting = {
       alt: values.alt,
       link: values.link,
       desktop_image: values.desktop_image,
       mobile_image: values.mobile_image,
       is_active: values.is_active,
-      id: data.value.length,
+      id: lastId + 1,
     }
+
     data.value.push(item)
   }
   loading.value = true
@@ -239,11 +244,11 @@ const submit = () => {
 }
 
 const removeAdd = async (row: AdsSetting) => {
-  loading.value = true
   const index = data.value.findIndex(el => el.id === row.id)
-  if (index === -1 || !index) {
+  if (index === -1) {
     return ElMessage.error('تبلیغ مورد نظر یافت نشد، لطفا صفحه ها رفرش و مجددا تست فرمایید')
   }
+  loading.value = true
   try {
     await removeFile(row.mobile_image)
     await removeFile(row.desktop_image)
