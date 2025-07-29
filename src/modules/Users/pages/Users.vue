@@ -5,6 +5,7 @@
         <el-card>
           <div class="p-0 d-flex">
             <h3>کاربران</h3>
+            <el-button class="ms-auto" type="success" round plain @click="formVisible = true"> افزودن</el-button>
           </div>
         </el-card>
       </div>

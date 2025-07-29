@@ -41,10 +41,13 @@
         <div class="col-md-6 my-1">
           <TextField name="timezone" label="تایم زون" />
         </div>
-        <div class="col-md-6 my-1">
+        <div class="col-md-12 my-1">
+          <TextField name="username" label="نام کاربری" />
+        </div>
+        <div class="col-md-6 my-2">
           <CheckboxField name="is_active" label="فعال" />
         </div>
-        <div class="col-md-6 my-1">
+        <div class="col-md-6 my-2">
           <CheckboxField name="is_superuser" label="مدیر کل" />
         </div>
 
@@ -70,7 +73,7 @@ import { ref, toRefs, type PropType } from 'vue'
 import * as yup from 'yup'
 import { useForm as useUserForm } from 'vee-validate'
 import TextField from '@/components/Form/TextField.vue'
-import { get, update } from '@/modules/Users/api/user'
+import { create, get, update } from '@/modules/Users/api/user'
 import CheckboxField from '@/components/Form/CheckboxField.vue'
 
 const props = defineProps({
@@ -88,7 +91,8 @@ const loadingForm = ref(true)
 
 const {
   handleSubmit,
-  setValues
+  setValues,
+  setFieldError
 } = useUserForm({
   validationSchema: yup.object().shape({
     first_name: yup.string(),
@@ -97,6 +101,7 @@ const {
     phone: yup.string().required('ضروری است'),
     broker_choices: yup.string(),
     timezone: yup.string(),
+    username: yup.string().required('ضروری است'),
     is_active: yup.boolean().required('ضروری است'),
     is_superuser: yup.boolean().required('ضروری است'),
   }),
@@ -107,10 +112,14 @@ const submitUserInfo = handleSubmit(async (values) => {
     loadingInfo.value = true
     if (editValue?.value?.id) {
       await update(editValue.value.id, values)
+    } else {
+      await create(values)
     }
     closeForm()
-  } catch (error) {
-    console.error('User info error:', error)
+  } catch (error: any) {
+    Object.keys(error.response.data).forEach((key) => {
+      setFieldError(key, error.response.data[key])
+    })
   } finally {
     loadingInfo.value = false
   }
@@ -129,7 +138,10 @@ const openForm = async () => {
       broker_choices: data.data.data?.broker_choices,
       is_active: data.data.data?.is_active,
       is_superuser: data.data.data?.is_superuser,
+      username: data.data.data?.username,
     })
+    loadingForm.value = false
+  } else {
     loadingForm.value = false
   }
 }
