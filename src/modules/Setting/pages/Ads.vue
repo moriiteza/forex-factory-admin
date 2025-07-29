@@ -233,7 +233,7 @@ const submit = () => {
 
     data.value.push(item)
   }
-  loading.value = true ض
+  loading.value = true
   create(data.value)
     .then((res: any) => {
       loading.value = false
