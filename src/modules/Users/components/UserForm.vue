@@ -44,6 +44,9 @@
         <div class="col-md-12 my-1">
           <TextField name="username" label="نام کاربری" />
         </div>
+        <div class="col-md-12 my-1" v-if="!editValue?.value?.id">
+          <TextField name="password" label="رمز عبور" />
+        </div>
         <div class="col-md-6 my-2">
           <CheckboxField name="is_active" label="فعال" />
         </div>
@@ -104,6 +107,7 @@ const {
     username: yup.string().required('ضروری است'),
     is_active: yup.boolean().required('ضروری است'),
     is_superuser: yup.boolean().required('ضروری است'),
+    password: yup.string().optional(),
   }),
 })
 
@@ -111,7 +115,9 @@ const submitUserInfo = handleSubmit(async (values) => {
   try {
     loadingInfo.value = true
     if (editValue?.value?.id) {
-      await update(editValue.value.id, values)
+      const body = { ...values }
+      if ('password' in values) delete body.password
+      await update(editValue.value.id, body)
     } else {
       await create(values)
     }
