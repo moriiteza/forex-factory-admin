@@ -39,9 +39,10 @@ import { onMounted, ref } from 'vue'
 import DataTable from '@/components/DataTable/DataTable.vue'
 import type { TableColumnInterFace } from '@/interfaces/table'
 import type { FilterBuilderInterface } from '@/interfaces/filter-builder'
-import { fetch } from '@/modules/Users/api/user.ts'
+import { fetch, remove } from '@/modules/Users/api/user.ts'
 import UserForm from '@/modules/Users/components/UserForm.vue'
 import UserPasswordForm from '@/modules/Users/components/UserPasswordForm.vue'
+import { ElMessageBox } from 'element-plus'
 
 const formVisible = ref(false)
 const formData = ref<{} | null>(null)
@@ -134,6 +135,20 @@ const tableColumns: TableColumnInterFace[] = [
         onClick: (row?: any) => {
           passwordFormVisible.value = true
           passwordFormData.value = row.row.row
+        },
+      },
+      {
+        icon: 'material-symbols:delete-outline',
+        tooltip: 'حذف',
+        iconColor: 'danger',
+        onClick: (row?: any) => {
+          ElMessageBox.confirm('آیا از حذف این کاربر اطمینان دارید؟', `حذف ${row.row.row.username}`, {
+            confirmButtonText: 'بله حذف کن',
+            cancelButtonText: 'منصرف شدم',
+            type: 'error',
+          }).then(() => {
+            remove(row.row.row.id).then(() => getItems())
+          })
         },
       },
     ],
