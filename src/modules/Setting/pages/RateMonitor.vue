@@ -31,7 +31,7 @@ const assetList = ref<Asset[]>([
   { name: 'تتر', symbol: 'tether', price: '', second_price: '', timestamp: '' },
   { name: 'انس جهانی طلا', symbol: 'gold-ons', price: '', second_price: '', timestamp: '' },
   { name: 'طلای ۱۸ عیار', symbol: '18ayar', price: null, second_price: null, timestamp: '' },
-  { name: 'دلار', symbol: 'usd', price: '', second_price: null, timestamp: '' },
+  { name: 'دلار', symbol: 'us', price: '', second_price: null, timestamp: '' },
 ])
 
 const getData = async () => {
