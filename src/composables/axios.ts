@@ -3,8 +3,8 @@ import axios from 'axios'
 import router from '@/router'
 import { ElMessage } from 'element-plus'
 
-// export const baseurl = 'https://requests.forexfactory.live/api';
-export const baseurl = 'http://localhost:8000/api';
+export const baseurl = 'https://requests.forexfactory.live/api';
+// export const baseurl = 'http://localhost:8000/api';
 
 // Base API URL (Change to your backend URL)
 const api = axios.create({
