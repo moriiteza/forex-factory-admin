@@ -24,6 +24,11 @@ export default {
     'mid': 'متوسط',
     'none': 'غیر اقتصادی',
   },
+  planTypes: {
+    'BROKER': 'بروکر',
+    'JOURNAL': 'ژرنال',
+    'API': 'api',
+  },
   getEnumArray(enumItem: string, start = 1) {
     const result = []
     let index = start

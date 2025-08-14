@@ -46,6 +46,18 @@
       <template #title> جلسات معاملاتی</template>
     </el-menu-item>
 
+    <el-sub-menu :index='`subscription`' class='ps-0'>
+      <template #title>
+        <Icon class='me-2 fs-6' :icon="'material-symbols:subscriptions-outline'" width="20"></Icon>
+        <span :class="{'d-none' : isCollapse}">اشتراک ها</span>
+      </template>
+      <el-menu-item :index='`subscription-plans`' class='ps-5 m-0'
+                    @click='router.push({path: `/subscription/plans`})'
+                    :class="{'active': activeIndex === `subscription-plan`}">
+        بسته ها
+      </el-menu-item>
+    </el-sub-menu>
+
     <el-sub-menu :index='`story`' class='ps-0'>
       <template #title>
         <Icon class='me-2 fs-6' :icon="'material-symbols:history-toggle-off'" width="20"></Icon>

@@ -8,6 +8,7 @@ import Setting from '@/modules/Setting/module'
 import Story from '@/modules/Story/module'
 import Sessions from '@/modules/Sessions/module'
 import Users from '@/modules/Users/module'
+import Subscription from '@/modules/Subscription/module'
 
 
 export default {
@@ -31,5 +32,8 @@ export default {
   },
   Users: {
     Users: Users,
+  },
+  Subscription: {
+    Subscription: Subscription,
   },
 }
