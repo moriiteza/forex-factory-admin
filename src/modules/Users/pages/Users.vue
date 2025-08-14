@@ -154,7 +154,49 @@ const tableColumns: TableColumnInterFace[] = [
     ],
   },
 ]
-const tableFilters: FilterBuilderInterface[] = []
+const tableFilters: FilterBuilderInterface[] = [
+  {
+    name: 'first_name',
+    type: 'textField',
+    title: 'نام',
+    icon: true,
+  },
+  {
+    name: 'last_name',
+    type: 'textField',
+    title: 'نام خانوادگی',
+    enum: 'planTypes',
+    icon: true,
+  },
+  {
+    name: 'last_name',
+    type: 'textField',
+    title: 'نام خانوادگی',
+    enum: 'planTypes',
+    icon: true,
+  },
+  {
+    name: 'phone',
+    type: 'textField',
+    title: 'موبایل',
+    enum: 'planTypes',
+    icon: true,
+  },
+  {
+    name: 'email',
+    type: 'textField',
+    title: 'ایمیل',
+    enum: 'planTypes',
+    icon: true,
+  },
+  {
+    name: 'username',
+    type: 'textField',
+    title: 'نام کاربری',
+    enum: 'planTypes',
+    icon: true,
+  },
+]
 
 const getItems = (filter?: any) => {
   loading.value = true
