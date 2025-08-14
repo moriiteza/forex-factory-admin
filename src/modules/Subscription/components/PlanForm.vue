@@ -30,11 +30,11 @@
           <EnumSelectField enum="planTypes" name="type" label="نوع" />
         </div>
 
-        <div class="col-md-6 my-3">
+        <div class="col-md-12 my-3" v-if="values.type === 'JOURNAL'">
           <TextField name="available_time" label="مدت زمان اعتبار " placeholder="2 (به ماه)"/>
         </div>
 
-        <div class="col-md-6 my-3">
+        <div class="col-md-12 my-3" v-else>
           <TextField name="available_requests" label="تعداد درخواست" />
         </div>
 
@@ -105,14 +105,14 @@ const schema = yup.object({
   available_requests: yup.number().optional().nullable(),
 })
 
-const { handleSubmit, resetForm, setValues } = useForm({
+const { handleSubmit, values, setValues } = useForm({
   validationSchema: schema,
 })
 
-const submitForm = handleSubmit(async (values) => {
+const submitForm = handleSubmit(async (body) => {
   try {
     loading.value = true
-    const payload = { ...values }
+    const payload = { ...body }
     if (editValue?.value?.id) {
       await update(editValue?.value?.id, payload)
     } else {
