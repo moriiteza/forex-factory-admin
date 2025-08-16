@@ -90,6 +90,11 @@
                     :class="{'active': activeIndex === `setting-rate-monitor`}">
         قیمت ها
       </el-menu-item>
+      <el-menu-item :index='`setting-tutorial-journal`' class='ps-5 m-0'
+                    @click='router.push({path: `/setting/tutorial/journal`})'
+                    :class="{'active': activeIndex === `setting-tutorial-journal`}">
+        آموزش ژرنال
+      </el-menu-item>
     </el-sub-menu>
   </el-menu>
 </template>

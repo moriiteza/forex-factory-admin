@@ -19,4 +19,13 @@ export default [
       requiresAuth: true,
     },
   },
+  {
+    path: '/setting/tutorial/journal',
+    name: 'setting-tutorial-journal',
+    component: () => import('./pages/TutorialJournal.vue'),
+    meta: {
+      layout: AppLayout,
+      requiresAuth: true,
+    },
+  },
 ]

@@ -9,7 +9,6 @@ export const baseurl = 'https://requests.forexfactory.live/api';
 // Base API URL (Change to your backend URL)
 const api = axios.create({
   baseURL: baseurl,
-  headers: { 'Content-Type': 'application/json' },
 })
 
 // **🚀 Attach JWT Token to Requests**
