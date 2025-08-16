@@ -78,6 +78,12 @@ const tableColumns: TableColumnInterFace[] = [
     sortable: false,
   },
   {
+    title: 'قیمت',
+    key: 'price',
+    type: 'text',
+    sortable: false,
+  },
+  {
     title: 'تاریخ ثبت',
     key: 'created_at',
     type: 'originalDate',

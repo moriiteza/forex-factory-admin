@@ -39,6 +39,10 @@
         </div>
 
         <div class="col-md-12 my-1">
+          <TextField name="price" label="قیمت (تومان)" />
+        </div>
+
+        <div class="col-md-12 my-1">
           <TextField name="description" label="توضیحات" />
         </div>
 
@@ -101,6 +105,7 @@ const schema = yup.object({
   name: yup.string().required('ضروری است'),
   description: yup.string().required('ضروری است'),
   type: yup.string().required('ضروری است'),
+  price: yup.number().required('ضروری است'),
   available_time: yup.number().optional().nullable(),
   available_requests: yup.number().optional().nullable(),
 })
