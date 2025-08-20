@@ -47,6 +47,7 @@ import axiosInstance, { baseurl } from '@/composables/axios'
 
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useAuthStore } from '@/stores/auth.ts'
+import GeneralHtmlSupport from '@ckeditor/ckeditor5-html-support/src/generalhtmlsupport';
 
 
 const props = defineProps({
@@ -69,10 +70,45 @@ const editor = ClassicEditor;
 const authStore = useAuthStore()
 
 const editorConfig = {
-  extraPlugins: [uploadingAdapter],
+  extraPlugins: [uploadingAdapter, GeneralHtmlSupport],
   language: {
     ui: 'en',
     content: 'ar'
+  },
+  mediaEmbed: {
+    providers: [
+      {
+        name: 'aparat',
+        url: /^https:\/\/www\.aparat\.com\/.+$/,
+        html: match => {
+          const url = match[0];
+          return `<div class="aparat-video"><iframe src="${url}" frameborder="0" allowfullscreen></iframe></div>`;
+        }
+      }
+    ],
+    previewsInData: true
+  },
+  htmlSupport: {
+    allow: [
+      {
+        name: 'script',
+        attributes: true,
+        classes: true,
+        styles: true
+      },
+      {
+        name: 'iframe',
+        attributes: true,
+        classes: true,
+        styles: true
+      },
+      {
+        name: 'div',
+        attributes: true,
+        classes: true,
+        styles: true
+      }
+    ]
   }
 };
 
