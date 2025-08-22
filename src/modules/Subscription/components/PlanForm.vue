@@ -38,8 +38,12 @@
           <TextField name="available_requests" label="تعداد درخواست" />
         </div>
 
-        <div class="col-md-12 my-1">
+        <div class="col-md-6 my-1">
           <TextField name="price" label="قیمت (تومان)" />
+        </div>
+
+        <div class="col-md-6 my-1">
+          <TextField name="discount_percentage" label="درصد تخفیف" />
         </div>
 
         <div class="col-md-12 my-1">
@@ -108,6 +112,7 @@ const schema = yup.object({
   price: yup.number().required('ضروری است'),
   available_time: yup.number().optional().nullable(),
   available_requests: yup.number().optional().nullable(),
+  discount_percentage: yup.number().optional().nullable(),
 })
 
 const { handleSubmit, values, setValues } = useForm({

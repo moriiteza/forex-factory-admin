@@ -84,6 +84,12 @@ const tableColumns: TableColumnInterFace[] = [
     sortable: false,
   },
   {
+    title: 'درصد تخفیف',
+    key: 'discount_percentage',
+    type: 'text',
+    sortable: false,
+  },
+  {
     title: 'تاریخ ثبت',
     key: 'created_at',
     type: 'originalDate',
