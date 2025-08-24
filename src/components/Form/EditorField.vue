@@ -45,9 +45,9 @@ import { toRef } from 'vue'
 import { useField } from 'vee-validate'
 import axiosInstance, { baseurl } from '@/composables/axios'
 
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useAuthStore } from '@/stores/auth.ts'
 import { GeneralHtmlSupport } from '@ckeditor/ckeditor5-html-support'
+import { ClassicEditor } from 'ckeditor5'
 
 
 const props = defineProps({
