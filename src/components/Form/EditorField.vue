@@ -47,7 +47,7 @@ import axiosInstance, { baseurl } from '@/composables/axios'
 
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useAuthStore } from '@/stores/auth.ts'
-import GeneralHtmlSupport from '@ckeditor/ckeditor5-html-support/src/generalhtmlsupport';
+import { GeneralHtmlSupport } from '@ckeditor/ckeditor5-html-support'
 
 
 const props = defineProps({
@@ -80,7 +80,7 @@ const editorConfig = {
       {
         name: 'aparat',
         url: /^https:\/\/www\.aparat\.com\/.+$/,
-        html: match => {
+        html: (match: any) => {
           const url = match[0];
           return `<div class="aparat-video"><iframe src="${url}" frameborder="0" allowfullscreen></iframe></div>`;
         }
