@@ -46,8 +46,7 @@ import { useField } from 'vee-validate'
 import axiosInstance, { baseurl } from '@/composables/axios'
 
 import { useAuthStore } from '@/stores/auth.ts'
-import { GeneralHtmlSupport } from '@ckeditor/ckeditor5-html-support'
-import { ClassicEditor } from 'ckeditor5'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 const props = defineProps({
@@ -70,11 +69,8 @@ const editor = ClassicEditor;
 const authStore = useAuthStore()
 
 const editorConfig = {
-  extraPlugins: [uploadingAdapter, GeneralHtmlSupport],
-  language: {
-    ui: 'en',
-    content: 'ar'
-  },
+  extraPlugins: [uploadingAdapter],
+  language: { ui: 'en', content: 'ar' },
   mediaEmbed: {
     providers: [
       {
@@ -82,35 +78,23 @@ const editorConfig = {
         url: /^https:\/\/www\.aparat\.com\/.+$/,
         html: (match: any) => {
           const url = match[0];
-          return `<div class="aparat-video"><iframe src="${url}" frameborder="0" allowfullscreen></iframe></div>`;
+          const id = url.split('/').pop(); // expects .../v/VIDEO_ID
+          return `
+          <iframe
+            src="https://www.aparat.com/video/video/embed/videohash/${id}/vt/frame"
+            frameborder="0"
+            allow="fullscreen; picture-in-picture; encrypted-media; autoplay"
+            allowfullscreen
+            style="width:100%;aspect-ratio:16/9;display:block"
+          ></iframe>
+        `;
         }
       }
     ],
     previewsInData: true
-  },
-  htmlSupport: {
-    allow: [
-      {
-        name: 'script',
-        attributes: true,
-        classes: true,
-        styles: true
-      },
-      {
-        name: 'iframe',
-        attributes: true,
-        classes: true,
-        styles: true
-      },
-      {
-        name: 'div',
-        attributes: true,
-        classes: true,
-        styles: true
-      }
-    ]
   }
 };
+
 
 function uploadingAdapter(editor: any) {
   editor.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {
